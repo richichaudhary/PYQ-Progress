@@ -867,8 +867,12 @@
                            \\end{array}
                            $$<br>
                            <strong>Verdict:</strong> Proven valid.`
-            },
-            {
+            }
+        ]    
+        
+    },
+
+    { 
         chapterName: "Chapter 2: Proof Techniques",
         questions: [
             { 
@@ -1092,8 +1096,11 @@
                            Assume $n$ is odd ($n = 2k+1$).<br>
                            $7(2k+1) + 4 = 14k + 7 + 4 = 14k + 11 = 2(7k + 5) + 1$, which is odd.<br>
                            Since the negation of the conclusion leads to the negation of the premise, Part 2 holds.`
-            },
-            {
+            }
+        ]
+    },
+
+    {
         chapterName: "Chapter 3: Automata Theory, Regular Language and Grammar",
         questions: [
             { 
@@ -1293,8 +1300,10 @@
                            To construct an automaton for the reversal of a regular language ($L^R$):<br>
                            1. Reverse the direction of all transition arrows in the original FSA from <strong>2075-Q4.png</strong>.<br>
                            2. Swap the start state and the accepting state (make the old start state the new single accepting state, and create a new start state with $\\epsilon$-transitions pointing to all old accepting states).`
-            },
-            {
+            }
+        ]
+    },        
+    {
         chapterName: "Chapter 4: Recurrence Relation and Algorithmic Analysis",
         questions: [
             { 
@@ -1454,8 +1463,11 @@ for i = 1 to length(A) - 1
                            - Roots: $r = 2, 3 \\implies a_n^{(h)} = c_1(2^n) + c_2(3^n)$.<br>
                            - Particular solution for $6^n$: Try $a_n^{(p)} = c 6^n$. Substituting gives $c = \\frac{6^2}{6^2 - 5(6) + 6} = \\frac{36}{12} = 3$.<br>
                            - General solution: $a_n = c_1(2^n) + c_2(3^n) + 3(6^n)$.`
-            },
-            {
+            }
+        ] 
+    },
+     
+    {
         chapterName: "Chapter 5: Graph Theory & Tree",
         questions: [
             { 
@@ -1627,7 +1639,7 @@ for i = 1 to length(A) - 1
                            Since the first sum consists entirely of even numbers, its sum is even. Thus, the sum of the odd degrees must also be even to yield an even total. Since each term in $\\sum_{v \\in V_{odd}} \\deg(v)$ is odd, there must be an <strong>even number</strong> of such terms.`
             }
         ]
-    }       
+    },       
           
 ];
     
