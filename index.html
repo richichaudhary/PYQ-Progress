@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discrete Structure PYQ Tracker</title>
+    
+    <!-- MathJax Configuration & Library -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -229,6 +240,7 @@
 
         .question-content {
             flex-grow: 1;
+            overflow-x: auto;
         }
 
         .question-text {
@@ -315,7 +327,7 @@
         <div class="questions-container" id="questions-container"></div>
     </div>
 
-   <script>
+    <script>
         const courseData = [
             {
                 chapterName: "Chapter 1: Logic and Induction",
@@ -420,7 +432,6 @@
         let activeChapterIndex = 0;
 
         function init() {
-            // Version 5 key forces a clean reset in the browser to grab the .png links
             const savedData = localStorage.getItem('dsTrackerData_v5');
             if (savedData) {
                 trackerData = JSON.parse(savedData);
