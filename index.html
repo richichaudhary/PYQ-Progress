@@ -539,14 +539,40 @@
                 
                 if (q.imageUrl && q.imageUrl.trim() !== "") {
                     const img = document.createElement('img');
-                    img.src = q.imageUrl;
+                    img.src = q.imageData || q.imageUrl;
                     img.className = 'img-preview';
                     
                     img.onerror = function() {
                         this.style.display = 'none';
                         const instructions = document.createElement('div');
                         instructions.className = 'img-placeholder';
-                        instructions.innerHTML = `[Image Missing]<br>Please upload your screenshot exactly as: <span class="img-filename">${q.imageUrl}</span>`;
+                        instructions.innerHTML = `[Image Missing]<br>Please select an image for <span class="img-filename">${q.imageUrl}</span>`;
+
+                        const upload = document.createElement('input');
+                        upload.type = 'file';
+                        upload.accept = 'image/*';
+                        upload.style.display = 'block';
+                        upload.style.margin = '12px auto 0';
+
+                        upload.addEventListener('change', (event) => {
+                            const file = event.target.files[0];
+                            if (!file || !file.type.startsWith('image/')) return;
+
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                q.imageData = reader.result;
+                                img.src = q.imageData;
+                                img.style.display = 'block';
+                                instructions.remove();
+                                saveData();
+                            };
+                            reader.onerror = () => {
+                                instructions.firstChild.textContent = 'Unable to read that file. Please select another image.';
+                            };
+                            reader.readAsDataURL(file);
+                        });
+
+                        instructions.appendChild(upload);
                         contentDiv.appendChild(instructions);
                     };
                     
