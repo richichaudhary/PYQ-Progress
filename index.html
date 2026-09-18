@@ -659,7 +659,413 @@
                            \\end{array}
                            $$<br>
                            <strong>Verdict:</strong> The argument is <strong>Valid</strong>.`
+            },
+            { 
+                id: "c1q9", 
+                text: "Determine whether the following system specifications are consistent or not: 'If the network is down, then users cannot access the cloud storage.' 'If users can access the cloud storage, then they can upload files.' 'If users cannot upload files, then the network is down.'", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define the Propositions:</strong><br>
+                           $D$: The network is down.<br>
+                           $C$: Users can access cloud storage.<br>
+                           $U$: Users can upload files.<br><br>
+                           <strong>2. Formalize Specifications:</strong><br>
+                           1. $D \\rightarrow \\sim C$<br>
+                           2. $C \\rightarrow U$<br>
+                           3. $\\sim U \\rightarrow D$<br><br>
+                           <strong>3. Truth Table Analysis:</strong><br>
+                           $$
+                           \\begin{array}{|c|c|c|c|c|c|}
+                           \\hline
+                           D & C & U & D \\rightarrow \\sim C & C \\rightarrow U & \\sim U \\rightarrow D \\\\
+                           \\hline
+                           T & T & T & F & T & T \\\\
+                           T & T & F & F & F & T \\\\
+                           \\mathbf{T} & \\mathbf{F} & \\mathbf{T} & \\mathbf{T} & \\mathbf{T} & \\mathbf{T} \\\\
+                           T & F & F & T & T & T \\\\
+                           F & T & T & T & T & T \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> The specifications are <strong>Consistent</strong> because there exists at least one truth assignment ($D=T, C=F, U=T$) where all three conditional statements evaluate to True simultaneously.`
+            },
+            { 
+                id: "c1q10", 
+                text: "Using rules of inference, derive the conclusion to the given hypothesis: 'If today is Sunday then I will have a test in Discrete Structure and Microprocessor. If my Microprocessor instructor is busy then I will not have a test in Microprocessor. Today is Sunday and my Microprocessor instructor is busy'. Conclusion: 'I will have a test in Discrete Structure'.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define Propositions:</strong><br>
+                           $S$: Today is Sunday.<br>
+                           $D$: Test in Discrete Structure.<br>
+                           $M$: Test in Microprocessor.<br>
+                           $B$: Microprocessor instructor is busy.<br><br>
+                           <strong>2. Formalize Premises:</strong><br>
+                           Premise 1: $S \\rightarrow (D \\land M)$<br>
+                           Premise 2: $B \\rightarrow \\sim M$<br>
+                           Premise 3: $S \\land B$<br>
+                           Conclusion: $\\therefore D$<br><br>
+                           <strong>3. Derivation Table:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Proposition} & \\text{Reason} \\\\
+                           \\hline
+                           1 & S \\land B & \\text{Premise 3} \\\\
+                           2 & S & \\text{Simplification from 1} \\\\
+                           3 & S \\rightarrow (D \\land M) & \\text{Premise 1} \\\\
+                           4 & D \\land M & \\text{Modus Ponens from 2 and 3} \\\\
+                           5 & D & \\text{Simplification from 4} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> Validly derived.`
+            },
+            { 
+                id: "c1q11", 
+                text: "What do you mean by tautology, contradiction and contingency? Let $Q(x)$ be the statement '$x < 2$'. What is the truth value of the quantification $\\forall x Q(x)$, where the domain consists of all real numbers?", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Definitions:</strong><br>
+                           - <strong>Tautology:</strong> Always true under all truth assignments.<br>
+                           - <strong>Contradiction:</strong> Always false under all truth assignments.<br>
+                           - <strong>Contingency:</strong> Neither a tautology nor a contradiction (depends on variable truth values).<br><br>
+                           <strong>Quantification Analysis:</strong><br>
+                           Statement: $\\forall x (x < 2)$ over domain $\\mathbb{R}$.<br>
+                           Since we can choose a real number greater than or equal to 2 (e.g., $x = 3$), the universal statement fails.<br>
+                           <strong>Verdict:</strong> The truth value is <strong>False</strong>.`
+            },
+            { 
+                id: "c1q12", 
+                text: "Construct an argument using rules of inference to show that the hypotheses 'if it does not rain or if it is not foggy, then the sailing race will be held and the lifesaving demonstration will go on,' 'If the sailing race is held, then the trophy will be awarded' and 'The trophy was not awarded' imply the conclusion 'It rained'.", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define Propositions & Premises:</strong><br>
+                           $R$: It rains, $F$: It is foggy, $S$: Sailing race is held, $L$: Lifesaving demo goes on, $T$: Trophy is awarded.<br>
+                           1. $(\\sim R \\lor \\sim F) \\rightarrow (S \\land L)$<br>
+                           2. $S \\rightarrow T$<br>
+                           3. $\\sim T$<br>
+                           Conclusion: $\\therefore R$<br><br>
+                           <strong>2. Derivation:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Expression} & \\text{Reason} \\\\
+                           \\hline
+                           1 & S \\rightarrow T, \\sim T & \\text{Premises 2 & 3} \\\\
+                           2 & \\sim S & \\text{Modus Tollens} \\\\
+                           3 & \\sim S \\lor \\sim L & \\text{Addition} \\\\
+                           4 & \\sim (S \\land L) & \\text{De Morgan's Law} \\\\
+                           5 & \\sim (\\sim R \\lor \\sim F) & \\text{Modus Tollens using Premise 1} \\\\
+                           6 & R \\land F & \\text{Double Negation & De Morgan's} \\\\
+                           7 & R & \\text{Simplification} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> Proven successfully.`
+            },
+            { 
+                id: "c1q13", 
+                text: "Let $P(x,y)$ be the propositional function $x \\ge y$. The domain of discourse is set of all the positive integers. Now tell whether the proposition is true or false with reasoning: (a) $\\exists x\\forall y P(x, y)$ (b) $\\forall x\\exists y P(x, y)$.", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>Analysis over Positive Integers ($\\mathbb{Z}^+$):</strong><br>
+                           (a) $\\exists x\\forall y (x \\ge y)$<br>
+                           <em>Meaning:</em> There exists a single positive integer $x$ that is greater than or equal to every positive integer $y$.<br>
+                           <strong>Verdict: False.</strong> No single integer can be greater than or equal to all positive integers (since integers go to infinity).<br><br>
+                           (b) $\\forall x\\exists y (x \\ge y)$<br>
+                           <em>Meaning:</em> For every positive integer $x$, there exists a positive integer $y$ that is less than or equal to it.<br>
+                           <strong>Verdict: True.</strong> For any chosen $x$, we can always pick $y = 1$ (or $y = x$), which satisfies $x \\ge y$.`
+            },
+            { 
+                id: "c1q14", 
+                text: "Use rules of inference to show that the hypothesis 'No humans can fly.', 'Tweety is a bird or a human.', 'Tweety can fly' implies the conclusion 'Tweety is a bird'.", 
+                meta: "2078 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define Propositions:</strong><br>
+                           $H(x)$: $x$ is a human, $F(x)$: $x$ can fly, $B(x)$: $x$ is a bird.<br>
+                           Premises: 1. $\\forall x (H(x) \\rightarrow \\sim F(x))$, 2. $B(\\text{Tweety}) \\lor H(\\text{Tweety})$, 3. $F(\\text{Tweety})$<br>
+                           Conclusion: $\\therefore B(\\text{Tweety})$<br><br>
+                           <strong>2. Derivation:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Expression} & \\text{Reason} \\\\
+                           \\hline
+                           1 & H(\\text{Tweety}) \\rightarrow \\sim F(\\text{Tweety}) & \\text{Universal Instantiation} \\\\
+                           2 & F(\\text{Tweety}) & \\text{Premise 3} \\\\
+                           3 & \\sim H(\\text{Tweety}) & \\text{Modus Tollens from 1 & 2} \\\\
+                           4 & B(\\text{Tweety}) \\lor H(\\text{Tweety}) & \\text{Premise 2} \\\\
+                           5 & B(\\text{Tweety}) & \\text{Disjunctive Syllogism from 3 & 4} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> Valid.`
+            },
+            { 
+                id: "c1q15", 
+                text: "Define consistency and Completeness of the Logical System. Draw Tableau for formula set: $\\Phi = \\{(P \\land Q) \\lor R, P \\rightarrow \\sim Q, \\sim P\\}$.", 
+                meta: "2078 Chaitra", 
+                done: false,
+                solution: `<strong>Definitions:</strong><br>
+                           - <strong>Consistency:</strong> A set of formulas is consistent if it is possible for all of them to be true simultaneously (no contradictions).<br>
+                           - <strong>Completeness:</strong> A logical system is complete if every tautology can be proven within the system.<br><br>
+                           <strong>Tableau Construction for $\\Phi$:</strong><br>
+                           1. $(P \\land Q) \\lor R$<br>
+                           2. $P \\rightarrow \\sim Q \\equiv \\sim P \\lor \\sim Q$<br>
+                           3. $\\sim P$<br><br>
+                           <em>Branching from Step 1:</em><br>
+                           - Branch A ($R$): Combined with $\\sim P$ (Step 3) and $\\sim P \\lor \\sim Q$ (Step 2). This branch has no contradictions and remains <strong>Open</strong>.<br>
+                           - Branch B ($P \\land Q$): Gives $P$ and $Q$. This immediately closes with $\\sim P$ from Step 3.<br><br>
+                           <strong>Verdict:</strong> Since at least one branch remains open, the formula set $\\Phi$ is <strong>Satisfiable / Consistent</strong>.`
+            },
+            { 
+                id: "c1q16", 
+                text: "Determine whether the given expression is consistent or inconsistent using method of Tableaux: $(P \\land (Q \\rightarrow R)) \\land (\\sim P \\rightarrow S) \\land Q \\land \\sim R \\land \\sim S$.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Tableau Setup:</strong><br>
+                           1. $P$<br>
+                           2. $Q \\rightarrow R \\equiv \\sim Q \\lor R$<br>
+                           3. $\\sim P \\rightarrow S \\equiv P \\lor S$<br>
+                           4. $Q$<br>
+                           5. $\\sim R$<br>
+                           6. $\\sim S$<br><br>
+                           <strong>Step-by-step Evaluation:</strong><br>
+                           - Expand Step 2 ($\\sim Q \\lor R$):<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;* Sub-branch 2.1 ($\\sim Q$): Closes instantly with Step 4 ($Q$).<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;* Sub-branch 2.2 ($R$): Closes instantly with Step 5 ($\\sim R$).<br><br>
+                           <strong>Verdict:</strong> All branches close. Therefore, the formula set is <strong>Inconsistent / Unsatisfiable</strong>.`
+            },
+            { 
+                id: "c1q17", 
+                text: "Show that the premises 'There is someone in this class who has been to Pokhara. Everyone who goes to Pokhara visit the Sarankot. Therefore, someone in this class has visited the Sarankot.'", 
+                meta: "2075 Bhadra", 
+                done: false,
+                solution: `<strong>1. Formalize using Predicates:</strong><br>
+                           $C(x)$: $x$ is in this class.<br>
+                           $P(x)$: $x$ has been to Pokhara.<br>
+                           $S(x)$: $x$ has visited Sarankot.<br><br>
+                           Premise 1: $\\exists x (C(x) \\land P(x))$<br>
+                           Premise 2: $\\forall x (P(x) \\rightarrow S(x))$<br>
+                           Conclusion: $\\therefore \\exists x (C(x) \\land S(x))$<br><br>
+                           <strong>2. Inference Proof:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Expression} & \\text{Reason} \\\\
+                           \\hline
+                           1 & \\exists x (C(x) \\land P(x)) & \\text{Premise 1} \\\\
+                           2 & C(a) \\land P(a) & \\text{Existential Instantiation} \\\\
+                           3 & P(a) & \\text{Simplification from 2} \\\\
+                           4 & C(a) & \\text{Simplification from 2} \\\\
+                           5 & \\forall x (P(x) \\rightarrow S(x)) & \\text{Premise 2} \\\\
+                           6 & P(a) \\rightarrow S(a) & \\text{Universal Instantiation} \\\\
+                           7 & S(a) & \\text{Modus Ponens from 3 & 6} \\\\
+                           8 & C(a) \\land S(a) & \\text{Conjunction from 4 & 7} \\\\
+                           9 & \\exists x (C(x) \\land S(x)) & \\text{Existential Generalization} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> Proven valid.`
+            },
+            {
+        chapterName: "Chapter 2: Proof Techniques",
+        questions: [
+            { 
+                id: "c2q1", 
+                text: "Prove that $\\sqrt{2} + \\sqrt{3}$ is irrational using proof by contradiction.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Proof by Contradiction:</strong><br>
+                           <strong>1. Assumption:</strong> Assume the opposite, that $\\sqrt{2} + \\sqrt{3}$ is a rational number $r$.<br>
+                           Let $r = \\sqrt{2} + \\sqrt{3}$, where $r \\in \\mathbb{Q}$.<br><br>
+                           <strong>2. Algebraic Manipulation:</strong><br>
+                           Square both sides:<br>
+                           $r^2 = (\\sqrt{2} + \\sqrt{3})^2$<br>
+                           $r^2 = 2 + 2\\sqrt{6} + 3$<br>
+                           $r^2 = 5 + 2\\sqrt{6}$<br><br>
+                           <strong>3. Isolate the radical:</strong><br>
+                           $r^2 - 5 = 2\\sqrt{6}$<br>
+                           $\\frac{r^2 - 5}{2} = \\sqrt{6}$<br><br>
+                           <strong>4. The Contradiction:</strong><br>
+                           Since $r$ is a rational number, $r^2$ is rational. Subtracting 5 and dividing by 2 yields another rational number. Therefore, the left side of the equation ($\\frac{r^2 - 5}{2}$) is strictly rational.<br>
+                           However, it is a known fact that $\\sqrt{6}$ is irrational. <br>
+                           We have reached a statement that a rational number equals an irrational number, which is impossible.<br><br>
+                           <strong>Conclusion:</strong> Our initial assumption was false. Therefore, $\\sqrt{2} + \\sqrt{3}$ must be irrational.`
+            },
+            { 
+                id: "c2q2", 
+                text: "Define the term counter example and witness with example.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Counterexample:</strong><br>
+                           A counterexample is a specific case or example that proves a universal statement ($\\forall x P(x)$) is false. It only takes one counterexample to disprove a universally quantified statement.<br>
+                           <em>Example:</em> Disprove the statement "All prime numbers are odd."<br>
+                           <em>Counterexample:</em> The number 2 is a prime number, but it is even. Therefore, the statement is false.<br><br>
+                           <strong>Witness:</strong><br>
+                           A witness is a specific value or example that proves an existential statement ($\\exists x P(x)$) is true. It demonstrates that at least one element in the domain satisfies the property.<br>
+                           <em>Example:</em> Prove the statement "There exists an even prime number."<br>
+                           <em>Witness:</em> The number 2 acts as the witness because it is both even and prime, proving the statement is true.`
+            },
+            { 
+                id: "c2q3", 
+                text: "Prove that $\\sqrt{2}$ is irrational using proof by contradiction.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Contradiction:</strong><br>
+                           <strong>1. Assumption:</strong> Assume $\\sqrt{2}$ is a rational number. This means it can be written as a fraction $\\frac{a}{b}$ in its simplest form, where $a$ and $b$ are integers with no common factors (other than 1), and $b \\neq 0$.<br>
+                           $\\sqrt{2} = \\frac{a}{b}$<br><br>
+                           <strong>2. Algebraic Manipulation:</strong><br>
+                           Square both sides: $2 = \\frac{a^2}{b^2}$<br>
+                           Multiply by $b^2$: $2b^2 = a^2$<br><br>
+                           <strong>3. First Implication:</strong><br>
+                           Since $a^2 = 2b^2$, $a^2$ is an even number. If the square of an integer is even, the integer itself must be even. Therefore, $a$ is even.<br>
+                           Let $a = 2k$ for some integer $k$.<br><br>
+                           <strong>4. Substitution:</strong><br>
+                           Substitute $a = 2k$ back into our equation:<br>
+                           $2b^2 = (2k)^2$<br>
+                           $2b^2 = 4k^2$<br>
+                           $b^2 = 2k^2$<br><br>
+                           <strong>5. The Contradiction:</strong><br>
+                           Since $b^2 = 2k^2$, $b^2$ is an even number, which means $b$ must also be even.<br>
+                           If both $a$ and $b$ are even, they share a common factor of 2. This directly contradicts our initial assumption that $\\frac{a}{b}$ was in its simplest form (sharing no common factors).<br><br>
+                           <strong>Conclusion:</strong> The assumption is false. $\\sqrt{2}$ is irrational.`
+            },
+            { 
+                id: "c2q4", 
+                text: "What are counterexamples? Explain with examples. Prove: If $n = ab$ ($a,b \\in \\mathbb{Z}^+$), then $a \\le \\sqrt{n}$ or $b \\le \\sqrt{n}$.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Contradiction:</strong><br>
+                           <strong>1. Define the Statement:</strong><br>
+                           Given $n = ab$, we need to prove $P \\lor Q$: $(a \\le \\sqrt{n}) \\lor (b \\le \\sqrt{n})$.<br><br>
+                           <strong>2. Assumption:</strong><br>
+                           Assume the conclusion is false. By De Morgan's Laws, the negation of $(a \\le \\sqrt{n}) \\lor (b \\le \\sqrt{n})$ is:<br>
+                           $(a > \\sqrt{n}) \\land (b > \\sqrt{n})$.<br><br>
+                           <strong>3. Algebraic Manipulation:</strong><br>
+                           Since both $a$ and $b$ are strictly greater than $\\sqrt{n}$, we can multiply these inequalities together (since $a, b \\in \\mathbb{Z}^+$ are positive):<br>
+                           $a \\cdot b > \\sqrt{n} \\cdot \\sqrt{n}$<br>
+                           $ab > n$<br><br>
+                           <strong>4. The Contradiction:</strong><br>
+                           We are given in the premise that $n = ab$. However, our assumption logically leads to $ab > n$, which means $n > n$. This is a mathematical contradiction.<br><br>
+                           <strong>Conclusion:</strong> Our assumption that both $a > \\sqrt{n}$ and $b > \\sqrt{n}$ must be false. Therefore, at least one of them must be less than or equal to $\\sqrt{n}$ (i.e., $a \\le \\sqrt{n}$ or $b \\le \\sqrt{n}$).`
+            },
+            { 
+                id: "c2q5", 
+                text: "Using mathematical induction show that $1^2 + 2^2 + 3^2 + \\dots + n^2 = \\frac{n(n+1)(2n+1)}{6}$.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           Let $P(n)$ be the proposition that $1^2 + 2^2 + \\dots + n^2 = \\frac{n(n+1)(2n+1)}{6}$.<br><br>
+                           <strong>1. Basis Step:</strong> Show $P(1)$ is true.<br>
+                           LHS: $1^2 = 1$<br>
+                           RHS: $\\frac{1(1+1)(2(1)+1)}{6} = \\frac{1(2)(3)}{6} = \\frac{6}{6} = 1$<br>
+                           Since LHS = RHS, $P(1)$ is true.<br><br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $P(k)$ is true for some positive integer $k$.<br>
+                           $1^2 + 2^2 + \\dots + k^2 = \\frac{k(k+1)(2k+1)}{6}$<br><br>
+                           <strong>3. Inductive Step:</strong> Show $P(k+1)$ is true.<br>
+                           We need to prove: $1^2 + 2^2 + \\dots + k^2 + (k+1)^2 = \\frac{(k+1)((k+1)+1)(2(k+1)+1)}{6} = \\frac{(k+1)(k+2)(2k+3)}{6}$<br><br>
+                           Start with the LHS and substitute the Inductive Hypothesis:<br>
+                           LHS = $(1^2 + 2^2 + \\dots + k^2) + (k+1)^2$<br>
+                           LHS = $\\frac{k(k+1)(2k+1)}{6} + (k+1)^2$<br>
+                           Factor out $(k+1)$:<br>
+                           LHS = $(k+1) \\left[ \\frac{k(2k+1)}{6} + (k+1) \\right]$<br>
+                           LHS = $(k+1) \\left[ \\frac{2k^2 + k + 6k + 6}{6} \\right]$<br>
+                           LHS = $\\frac{(k+1)(2k^2 + 7k + 6)}{6}$<br>
+                           Factor the quadratic $(2k^2 + 7k + 6)$:<br>
+                           $2k^2 + 4k + 3k + 6 = 2k(k+2) + 3(k+2) = (2k+3)(k+2)$<br><br>
+                           LHS = $\\frac{(k+1)(k+2)(2k+3)}{6}$<br><br>
+                           Since this exactly matches the required RHS for $P(k+1)$, the proposition is proven by mathematical induction.`
+            },
+            { 
+                id: "c2q6", 
+                text: "Use mathematical induction to prove that $7^{n+2} + 8^{2n+1}$ is divisible by $57$ for every nonnegative integer $n$.", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           Let $P(n)$ be the proposition that $7^{n+2} + 8^{2n+1} = 57M$ for some integer $M$.<br><br>
+                           <strong>1. Basis Step ($n=0$):</strong><br>
+                           $7^{0+2} + 8^{2(0)+1} = 7^2 + 8^1 = 49 + 8 = 57$.<br>
+                           Since $57 = 57 \\times 1$, $P(0)$ is true.<br><br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $P(k)$ is true for some $k \\ge 0$.<br>
+                           $7^{k+2} + 8^{2k+1} = 57M$<br>
+                           This implies: $7^{k+2} = 57M - 8^{2k+1}$  --- (Equation 1)<br><br>
+                           <strong>3. Inductive Step:</strong> Show $P(k+1)$ is true.<br>
+                           We must show $7^{(k+1)+2} + 8^{2(k+1)+1}$ is a multiple of 57.<br>
+                           Expression: $7^{k+3} + 8^{2k+3}$<br>
+                           $= 7^1 \\cdot 7^{k+2} + 8^2 \\cdot 8^{2k+1}$<br>
+                           $= 7 \\cdot (7^{k+2}) + 64 \\cdot 8^{2k+1}$<br><br>
+                           Substitute $7^{k+2}$ using Equation 1:<br>
+                           $= 7 \\cdot (57M - 8^{2k+1}) + 64 \\cdot 8^{2k+1}$<br>
+                           $= 7 \\cdot 57M - 7 \\cdot 8^{2k+1} + 64 \\cdot 8^{2k+1}$<br>
+                           $= 57(7M) + 57 \\cdot 8^{2k+1}$<br>
+                           $= 57(7M + 8^{2k+1})$<br><br>
+                           Since $(7M + 8^{2k+1})$ is an integer, the expression is a multiple of 57. Thus, $P(k+1)$ holds. By induction, the statement is true for all non-negative integers $n$.`
             }
+        ]
+    },
+    {
+        chapterName: "Chapter 3: Automata Theory & Grammar",
+        questions: [
+            { 
+                id: "c3q2", 
+                text: "Give formal definition of DFA. Design a DFA accepting all strings over $\\Sigma = \\{a,b\\}$ that do not start with 'aba'.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Formal Definition of DFA:</strong><br>
+                           A Deterministic Finite Automaton (DFA) is a 5-tuple $(Q, \\Sigma, \\delta, q_0, F)$ where:<br>
+                           - $Q$: A finite set of states.<br>
+                           - $\\Sigma$: A finite set of input symbols (alphabet).<br>
+                           - $\\delta$: The transition function $\\delta: Q \\times \\Sigma \\rightarrow Q$.<br>
+                           - $q_0$: The initial (start) state, $q_0 \\in Q$.<br>
+                           - $F$: A set of final (accepting) states, $F \\subseteq Q$.<br><br>
+                           <strong>DFA Design (Does NOT start with 'aba'):</strong><br>
+                           Since the condition is "does not start with aba", any string that violates the sequence early is immediately accepted forever. Only strings that perfectly follow $a \\rightarrow b \\rightarrow a$ at the start will be dumped into a dead state.<br><br>
+                           <strong>States & Transitions:</strong><br>
+                           - <strong>$q_0$ (Start, Accept):</strong> If 'b' $\\rightarrow q_{safe}$. If 'a' $\\rightarrow q_1$.<br>
+                           - <strong>$q_1$ (Accept):</strong> Has 'a'. If 'a' $\\rightarrow q_{safe}$. If 'b' $\\rightarrow q_2$.<br>
+                           - <strong>$q_2$ (Accept):</strong> Has 'ab'. If 'b' $\\rightarrow q_{safe}$. If 'a' $\\rightarrow q_{dead}$.<br>
+                           - <strong>$q_{safe}$ (Accept):</strong> String safely avoided 'aba'. Loop 'a', 'b' back to $q_{safe}$.<br>
+                           - <strong>$q_{dead}$ (Reject):</strong> String started with 'aba'. Loop 'a', 'b' back to $q_{dead}$.<br><br>
+                           <em>All states are final states except $q_{dead}$.</em>`
+            },
+            { 
+                id: "c3q6", 
+                text: "Write CFG generating palindrome strings of even length over $\\{0,1\\}$. Derive $w = 10100101$ using rightmost derivation and draw the parse tree.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Context-Free Grammar (CFG):</strong><br>
+                           A palindrome of even length is generated by mirroring symbols outwards from the center. <br>
+                           Productions $P$:<br>
+                           $S \\rightarrow 0S0$<br>
+                           $S \\rightarrow 1S1$<br>
+                           $S \\rightarrow \\lambda$ (or $\\epsilon$, representing the empty string at the center of an even palindrome)<br><br>
+                           <strong>Rightmost Derivation for $w = 10100101$:</strong><br>
+                           Step 1: $S \\implies 1S1$<br>
+                           Step 2: $S \\implies 10S01$<br>
+                           Step 3: $S \\implies 101S101$<br>
+                           Step 4: $S \\implies 1010S0101$<br>
+                           Step 5: $S \\implies 1010\\lambda0101$ (Substituting $S \\rightarrow \\lambda$)<br>
+                           Result: $w = 10100101$<br><br>
+                           <strong>Parse Tree Structure:</strong><br>
+                           Root: $S$<br>
+                           ├── $1$<br>
+                           ├── $S$<br>
+                           │&nbsp;&nbsp;├── $0$<br>
+                           │&nbsp;&nbsp;├── $S$<br>
+                           │&nbsp;&nbsp;│&nbsp;&nbsp;├── $1$<br>
+                           │&nbsp;&nbsp;│&nbsp;&nbsp;├── $S$<br>
+                           │&nbsp;&nbsp;│&nbsp;&nbsp;│&nbsp;&nbsp;├── $0$<br>
+                           │&nbsp;&nbsp;│&nbsp;&nbsp;│&nbsp;&nbsp;├── $S \\rightarrow \\lambda$<br>
+                           │&nbsp;&nbsp;│&nbsp;&nbsp;│&nbsp;&nbsp;└── $0$<br>
+                           │&nbsp;&nbsp;│&nbsp;&nbsp;└── $1$<br>
+                           │&nbsp;&nbsp;└── $0$<br>
+                           └── $1$`
+            }
+        ]
+    }
+        
+            
         ]
     }
 ];
