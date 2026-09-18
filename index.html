@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discrete Structure PYQ Tracker</title>
+    <title>IOE ENCT 251 Tracker</title>
     
     <!-- MathJax Configuration & Library -->
     <script>
@@ -19,63 +19,70 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
-            --primary: #3b82f6;
-            --primary-hover: #2563eb;
-            --bg-color: #f3f4f6;
-            --sidebar-bg: #ffffff;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-main: #f8fafc;
+            --bg-sidebar: #ffffff;
             --surface: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border: #e5e7eb;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
             --success: #10b981;
+            --accent: #eff6ff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Sidebar Styles */
+        /* Sidebar */
         .sidebar {
-            width: 340px;
-            background-color: var(--sidebar-bg);
+            width: 320px;
+            background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             height: 100%;
             flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+            z-index: 20;
         }
 
         .sidebar-header {
-            padding: 24px;
+            padding: 28px 24px 24px;
             border-bottom: 1px solid var(--border);
         }
 
         .sidebar-header h1 {
             font-size: 1.25rem;
             font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
         }
 
         .progress-container {
-            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .progress-text {
             font-size: 0.875rem;
+            font-weight: 600;
             color: var(--text-muted);
-            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
         }
@@ -83,138 +90,181 @@
         .progress-bar-bg {
             background-color: var(--border);
             height: 8px;
-            border-radius: 4px;
+            border-radius: 999px;
             overflow: hidden;
         }
 
         .progress-bar-fill {
-            background-color: var(--success);
+            background-color: var(--primary);
             height: 100%;
             width: 0%;
-            transition: width 0.4s ease;
+            transition: width 0.5s ease;
         }
 
         .chapter-list {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 12px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .chapter-btn {
             width: 100%;
             text-align: left;
-            padding: 12px 16px;
-            margin-bottom: 4px;
-            border: none;
-            background: none;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border: 1px solid transparent;
+            background: transparent;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-muted);
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .chapter-btn:hover {
-            background-color: #f9fafb;
-            color: var(--text-main);
+            background-color: var(--bg-main);
+            color: var(--text-dark);
         }
 
         .chapter-btn.active {
-            background-color: #eff6ff;
+            background-color: var(--accent);
+            border-color: #bfdbfe;
             color: var(--primary);
             font-weight: 600;
+            box-shadow: var(--shadow-sm);
         }
 
         .chapter-progress-badge {
             font-size: 0.75rem;
             background-color: var(--border);
-            padding: 2px 8px;
-            border-radius: 12px;
-            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 999px;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
         .chapter-btn.active .chapter-progress-badge {
-            background-color: #dbeafe;
-            color: var(--primary);
+            background-color: var(--primary);
+            color: white;
         }
 
-        /* Main Content Styles */
+        /* Main Workspace */
         .main-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            background-color: var(--bg-color);
+            background-color: var(--bg-main);
             overflow-y: auto;
         }
 
         .content-header {
-            padding: 32px 40px 24px 40px;
-            background-color: var(--bg-color);
+            padding: 32px 48px;
+            background: rgba(248, 250, 252, 0.9);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid var(--border);
         }
 
-        .content-header h2 {
-            font-size: 1.8rem;
-            color: var(--text-main);
+        .header-title-group h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .chapter-stats {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
+        /* Filter */
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .year-select {
+            padding: 10px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--surface);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s;
+        }
+
+        .year-select:focus, .year-select:hover {
+            border-color: var(--primary);
+        }
+
+        /* Questions */
         .questions-container {
-            padding: 0 40px 40px 40px;
-            max-width: 900px;
+            padding: 32px 48px;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .question-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
+            padding: 24px;
             display: flex;
-            gap: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .question-card:hover {
-            border-color: #d1d5db;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            gap: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
         }
 
         .question-card.completed {
-            background-color: #f9fafb;
-            opacity: 0.7;
+            background-color: var(--bg-main);
+            border-color: var(--border);
+            box-shadow: none;
+            opacity: 0.8;
         }
 
-        .question-card.completed .question-text {
-            text-decoration: line-through;
-            color: var(--text-muted);
-        }
-
-        /* Custom Checkbox */
+        /* Checkbox */
         .checkbox-wrapper {
-            padding-top: 2px;
+            padding-top: 4px;
+            flex-shrink: 0;
         }
 
         input[type="checkbox"] {
             appearance: none;
-            background-color: #fff;
+            background-color: var(--surface);
             margin: 0;
-            font: inherit;
             color: currentColor;
-            width: 22px;
-            height: 22px;
-            border: 2px solid #d1d5db;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #cbd5e1;
             border-radius: 6px;
             display: grid;
             place-content: center;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
         input[type="checkbox"]::before {
@@ -225,7 +275,7 @@
             transition: 120ms transform ease-in-out;
             box-shadow: inset 1em 1em white;
             background-color: white;
-            transform-origin: bottom left;
+            transform-origin: center;
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
 
@@ -235,7 +285,7 @@
         }
 
         input[type="checkbox"]:checked::before {
-            transform: scale(1);
+            transform: scale(1.2);
         }
 
         .question-content {
@@ -243,62 +293,91 @@
             overflow-x: auto;
         }
 
-        .question-text {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: var(--text-main);
-            transition: color 0.2s;
+        .question-meta {
+            display: inline-block;
+            margin-bottom: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            background-color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid #bfdbfe;
         }
 
-        .question-meta {
-            margin-top: 8px;
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 500;
+        .question-card.completed .question-meta {
+            background-color: var(--border);
+            color: var(--text-muted);
+            border-color: transparent;
         }
+
+        .question-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        .question-card.completed .question-text {
+            color: var(--text-muted);
+        }
+
+        /* Solutions UI */
+        .solution-btn {
+            margin-top: 12px;
+            padding: 6px 12px;
+            background-color: var(--accent);
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .solution-btn:hover { background-color: #dbeafe; }
+
+        .solution-content {
+            display: none;
+            margin-top: 12px;
+            padding: 16px;
+            background-color: #f8fafc;
+            border-left: 3px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .solution-content.show { display: block; }
 
         .img-preview {
             max-width: 100%;
-            max-height: 250px;
-            margin-top: 15px;
+            max-height: 280px;
+            margin-top: 20px;
             border-radius: 8px;
             border: 1px solid var(--border);
             display: block;
         }
-
-        .img-placeholder {
-            margin-top: 15px;
-            padding: 20px;
-            background-color: #f3f4f6;
-            border: 1px dashed #9ca3af;
-            border-radius: 8px;
+        
+        .empty-state {
             text-align: center;
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-
-        .img-filename {
-            font-weight: bold;
-            color: var(--primary);
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
         }
 
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 40vh;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-            .content-header {
-                padding: 20px;
-            }
-            .questions-container {
-                padding: 0 20px 20px 20px;
-            }
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; max-height: 35vh; border-right: none; }
+            .content-header { padding: 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+            .questions-container { padding: 24px; }
         }
     </style>
 </head>
@@ -306,10 +385,10 @@
 
     <div class="sidebar">
         <div class="sidebar-header">
-            <h1>Discrete Structure PYQs</h1>
+            <h1>IOE ENCT 251 Tracker</h1>
             <div class="progress-container">
                 <div class="progress-text">
-                    <span>Overall Progress</span>
+                    <span>Course Completion</span>
                     <span id="overall-progress-text">0%</span>
                 </div>
                 <div class="progress-bar-bg">
@@ -322,132 +401,320 @@
 
     <div class="main-content">
         <div class="content-header">
-            <h2 id="current-chapter-title">Select a Chapter</h2>
+            <div class="header-title-group">
+                <h2 id="current-chapter-title">Chapter Title</h2>
+                <div class="chapter-stats" id="chapter-stats-text">0 / 0 Questions Completed</div>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Filter:</span>
+                <select id="year-filter" class="year-select" onchange="renderQuestions()">
+                    <option value="All">All Years</option>
+                </select>
+            </div>
         </div>
         <div class="questions-container" id="questions-container"></div>
     </div>
 
     <script>
+        // --- PASTE courseData ARRAY HERE IN THE NEXT STEP ---
+        
         const courseData = [
-            {
-                chapterName: "Chapter 1: Logic and Induction",
-                questions: [
-                    { id: "c1q1", text: "Consider the premises: 'If I get my Dashain bonus and my friends are free then I will take a road trip with my friends.' 'If my friends don't find a job after Dashain, then they will be free.' 'I got my Dashain bonus and my friends did not find a job after Dashain.' Leads to the conclusion: 'I will take a road trip with my friends.' using propositional logic.", meta: "2083 Baishakh", done: false },
-                    { id: "c1q2", text: "Explain different types of function. State the converse, contrapositive and inverse of the conditional statement 'My insurance company will pay me only if the flood destroys my house or the fire destroys my house.'", meta: "2082 Bhadra", done: false },
-                    { id: "c1q3", text: "Check validity of the given statement using method of tableaux: $A \\lor B, A \\rightarrow C, \\sim C \\lor D$. Hence, $B \\rightarrow D$.", meta: "2082 Bhadra", done: false },
-                    { id: "c1q4", text: "Determine whether the following system specifications are consistent or not: 'If the network is down, then users cannot access the cloud storage.' 'If users can access the cloud storage, then they can upload files.' 'If users cannot upload files, then the network is down.'", meta: "2081 Chaitra", done: false },
-                    { id: "c1q5", text: "Using rules of inference, derive the conclusion to the given hypothesis: 'If today is Sunday then I will have a test in Discrete Structure and Microprocessor. If my Microprocessor instructor is busy then I will not have a test in Microprocessor. Today is Sunday and my Microprocessor instructor is busy'. Conclusion: 'I will have a test in Discrete Structure'.", meta: "2080 Chaitra", done: false },
-                    { id: "c1q6", text: "What do you mean by tautology, contradiction and contingency? Let $Q(x)$ be the statement '$x < 2$'. What is the truth value of the quantification $\\forall x Q(x)$, where the domain consists of all real numbers?", meta: "2080 Chaitra", done: false },
-                    { id: "c1q7", text: "Construct an argument using rules of inference to show that the hypotheses 'if it does not rain or if it is not foggy, then the sailing race will be held and the lifesaving demonstration will go on,' 'If the sailing race is held, then the trophy will be awarded' and 'The trophy was not awarded' imply the conclusion 'It rained'.", meta: "2079 Chaitra", done: false },
-                    { id: "c1q8", text: "Let $P(x,y)$ be the propositional function $x \\ge y$. The domain of discourse is set of all the positive integers. Now tell whether the proposition is true or false with reasoning: (a) $\\exists x\\forall y P(x, y)$ (b) $\\forall x\\exists y P(x, y)$.", meta: "2079 Chaitra", done: false },
-                    { id: "c1q9", text: "Use rules of inference to show that the hypothesis 'No humans can fly.', 'Tweety is a bird or a human.', 'Tweety can fly' implies the conclusion 'Tweety is a bird'.", meta: "2078 Chaitra", done: false },
-                    { id: "c1q10", text: "Define consistency and Completeness of the Logical System. Draw Tableau for formula set: $\\Phi = \\{(P \\land Q) \\lor R, P \\rightarrow \\sim Q, \\sim P\\}$.", meta: "2078 Chaitra", done: false },
-                    { id: "c1q11", text: "Define Valid Argument in Logic. 'Somebody in this class enjoys whale watching. Every person who enjoys whale watching cares about ocean pollution. Therefore, there is a person in this class who cares about ocean pollution.' Show whether the given argument is valid or not using rules of inference.", meta: "2077 Chaitra", done: false },
-                    { id: "c1q12", text: "Determine whether the given expression is consistent or inconsistent using method of Tableaux: $(P \\land (Q \\rightarrow R)) \\land (\\sim P \\rightarrow S) \\land Q \\land \\sim R \\land \\sim S$.", meta: "2077 Chaitra", done: false },
-                    { id: "c1q13", text: "'A student in this class has not read the book' and 'Everyone in this class passed the first exam' implies that conclusion 'someone who passed the first exam has not read the book.'", meta: "2076 Baisakh", done: false },
-                    { id: "c1q14", text: "Show that $\\{A \\land C, (\\sim A \\lor B) \\land (\\sim B \\lor \\sim C)\\}$ are unsatisfiability of the given set using method of tableaux.", meta: "2076 Baisakh", done: false },
-                    { id: "c1q15", text: "Use rules of inference to show that the hypothesis 'If you have password then you can log on to facebook.' 'If you can log on to facebook then you can create your page.' 'If you can create your page then you can post advertisement or you can create an event.' 'You cannot post advertisement or you cannot create an event.' Imply the conclusion that 'You donot have password.'", meta: "2076 Bhadra", done: false },
-                    { id: "c1q16", text: "Define the terms Tautology, Contradiction and Logical Equivalences. Show that $\\sim A \\rightarrow \\sim B$ and $B \\rightarrow A$ are Logically Equivalent.", meta: "2075 Bhadra", done: false },
-                    { id: "c1q17", text: "Show that the premises 'There is someone in this class who has been to Pokhara. Everyone who goes to Pokhara visit the Sarankot. Therefore, someone in this class has visited the Sarankot.'", meta: "2075 Bhadra", done: false }
-                ]
+    {
+        chapterName: "Chapter 1: Logic and Induction",
+        questions: [
+            { 
+                id: "c1q1", 
+                text: "Prove the validity of the argument: 'If I get my Dashain bonus and my friends are free then I will take a road trip with my friends.' 'If my friends don't find a job after Dashain, then they will be free.' 'I got my Dashain bonus and my friends did not find a job after Dashain.' Conclusion: 'I will take a road trip with my friends.' using propositional logic.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>1. Define the Propositions:</strong><br>
+                           $B$: I get my Dashain bonus.<br>
+                           $F$: My friends are free.<br>
+                           $R$: I will take a road trip with my friends.<br>
+                           $J$: My friends find a job after Dashain.<br><br>
+                           <strong>2. Formalize the Premises and Conclusion:</strong><br>
+                           Premise 1: $(B \\land F) \\rightarrow R$<br>
+                           Premise 2: $\\sim J \\rightarrow F$<br>
+                           Premise 3: $B \\land \\sim J$<br>
+                           Conclusion: $\\therefore R$<br><br>
+                           <strong>3. Proof using Rules of Inference:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Proposition} & \\text{Reason} \\\\
+                           \\hline
+                           1 & B \\land \\sim J & \\text{Premise 3} \\\\
+                           2 & B & \\text{Simplification from 1} \\\\
+                           3 & \\sim J & \\text{Simplification from 1} \\\\
+                           4 & \\sim J \\rightarrow F & \\text{Premise 2} \\\\
+                           5 & F & \\text{Modus Ponens from 3 and 4} \\\\
+                           6 & B \\land F & \\text{Conjunction from 2 and 5} \\\\
+                           7 & (B \\land F) \\rightarrow R & \\text{Premise 1} \\\\
+                           8 & R & \\text{Modus Ponens from 6 and 7} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> The argument is valid because $R$ is logically derived from the premises.`
             },
-            {
-                chapterName: "Chapter 2: Proof Techniques",
-                questions: [
-                    { id: "c2q1", text: "Prove that $\\sqrt{2} + \\sqrt{3}$ is irrational using proof by contradiction.", meta: "2083 Baishakh", done: false },
-                    { id: "c2q2", text: "Using mathematical induction show that $1^2 + 2^2 + 3^2 + \\dots + n^2 = \\frac{n(n+1)(2n+1)}{6}$.", meta: "2083 Baishakh", done: false },
-                    { id: "c2q3", text: "Define the term counter example and witness with example.", meta: "2082 Bhadra", done: false },
-                    { id: "c2q4", text: "Use the Principle of Mathematical Induction to verify that, for any positive integer $n$, $n^3 + 2n$ is divisible by $3$.", meta: "2082 Bhadra", done: false },
-                    { id: "c2q5", text: "Use mathematical induction to prove that $7^{n+2} + 8^{2n+1}$ is divisible by $57$ for every nonnegative integer $n$.", meta: "2081 Chaitra & 2079 Chaitra", done: false },
-                    { id: "c2q6", text: "Define formal and informal proofs. Let $p(x)$ be $x^2 > 0$. If the domain consists of all integers, find the truth-value of $\\forall x p(x)$ and $\\exists x p(x)$.", meta: "2081 Chaitra", done: false },
-                    { id: "c2q7", text: "Prove that $\\sqrt{2}$ is irrational using proof by contradiction.", meta: "2080 Chaitra", done: false },
-                    { id: "c2q8", text: "Use mathematical induction to prove, if $n$ is non-negative integer, then $(n^5 - n)$ is divisible by $5$.", meta: "2078 Chaitra", done: false },
-                    { id: "c2q9", text: "What are 'Counterexamples', explain with example. Use mathematical induction to prove: $1^3 + 2^3 + 3^3 + \\dots + n^3 = \\frac{n^2(n+1)^2}{4}$ for all positive integer $n$.", meta: "2077 Chaitra", done: false },
-                    { id: "c2q10", text: "Prove that if $n = ab$, where $a$ and $b$ are positive integers, then $a \\le \\sqrt{n}$ or $b \\le \\sqrt{n}$.", meta: "2077 Chaitra", done: false },
-                    { id: "c2q11", text: "Prove that 'If $n$ is an integer and $3n+2$ is odd, then $n$ is odd.'", meta: "2076 Baisakh", done: false },
-                    { id: "c2q12", text: "Define Universal and Existential quantifiers with example. Use mathematical induction to prove that $1+4+7+\\dots+(3n-2) = \\frac{n(3n-1)}{2}$ for all non-negative integers $n$.", meta: "2076 Bhadra", done: false },
-                    { id: "c2q13", text: "Use mathematical induction to verify: $1^2 - 2^2 + 3^2 - 4^2 + \\dots + (-1)^{n+1}n^2 = \\frac{(-1)^{n+1}n(n+1)}{2}$.", meta: "2075 Bhadra", done: false },
-                    { id: "c2q14", text: "Prove by mathematical induction: $4^{n+1} + 5^{2n-1}$ is divisible by $21$ for $n$ as the positive integer.", meta: "2075 Baisakh", done: false },
-                    { id: "c2q15", text: "Prove that if $n$ is a positive integer, then $n$ is even if and only if $7n+4$ is even.", meta: "2074 Bhadra", done: false }
-                ]
+            { 
+                id: "c1q2", 
+                text: "Explain different types of function. State the converse, contrapositive and inverse of the conditional statement 'My insurance company will pay me only if the flood destroys my house or the fire destroys my house.'", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Types of Functions:</strong><br>
+                           <ul>
+                               <li><strong>Injective (One-to-One):</strong> A function $f: A \\rightarrow B$ where $f(x) = f(y) \\implies x = y$. Every element in the codomain is mapped to by at most one element in the domain.</li>
+                               <li><strong>Surjective (Onto):</strong> A function where for every $y \\in B$, there exists at least one $x \\in A$ such that $f(x) = y$.</li>
+                               <li><strong>Bijective:</strong> A function that is both injective and surjective. It possesses a perfect one-to-one correspondence.</li>
+                           </ul><br>
+                           <strong>Statement Analysis:</strong><br>
+                           The phrase "A only if B" translates logically to $A \\rightarrow B$.<br>
+                           Let $P$: My insurance company will pay me.<br>
+                           Let $Q$: The flood destroys my house.<br>
+                           Let $R$: The fire destroys my house.<br>
+                           Logical Form: $P \\rightarrow (Q \\lor R)$<br><br>
+                           <strong>1. Converse</strong> $(Q \\lor R) \\rightarrow P$:<br>
+                           <em>"If the flood destroys my house or the fire destroys my house, then my insurance company will pay me."</em><br><br>
+                           <strong>2. Inverse</strong> $\\sim P \\rightarrow \\sim (Q \\lor R)$ which is $\\sim P \\rightarrow (\\sim Q \\land \\sim R)$:<br>
+                           <em>"If my insurance company does not pay me, then the flood does not destroy my house and the fire does not destroy my house."</em><br><br>
+                           <strong>3. Contrapositive</strong> $\\sim (Q \\lor R) \\rightarrow \\sim P$ which is $(\\sim Q \\land \\sim R) \\rightarrow \\sim P$:<br>
+                           <em>"If the flood does not destroy my house and the fire does not destroy my house, then my insurance company will not pay me."</em>`
             },
-            {
-                chapterName: "Chapter 3: Automata Theory, Regular Language and Grammar",
-                questions: [
-                    { id: "c3q1", text: "Convert the following NDFA into equivalent DFA.", meta: "2083 Baishakh", done: false, imageUrl: "2083-Q5.png" },
-                    { id: "c3q2", text: "Derive the regular expression for the given automata.", meta: "2082 Bhadra", done: false, imageUrl: "2082-Q6.png" },
-                    { id: "c3q3", text: "Design a deterministic finite automata that accepts all the strings that does not starts with aba over $\\Sigma = \\{a,b\\}$. Also check for string $w_1 = abbabab$ and $w_2$ is accepted or rejected.", meta: "2082 Bhadra", done: false },
-                    { id: "c3q4", text: "Write a regular expression for the language that accepts all the string that does not contains three consecutive b over $\\Sigma = \\{a,b\\}$. Write a CFG that generates the palindrome string of even length over the alphabet $\\Sigma = \\{0,1\\}$. Also generate the string $w=10100101$ using right most derivation and draw the parse tree.", meta: "2083 Baishakh", done: false },
-                    { id: "c3q5", text: "Show that regular language is closed under Kleene star and complement operation.", meta: "2083 Baishakh", done: false },
-                    { id: "c3q6", text: "Design finite state automata that accepts precisely those strings over $\\{a, b\\}$ that ends with the substring 'baa'. Your design should include the proper definition of the finite state automaton, transition table and the transition diagram.", meta: "2081 Chaitra", done: false },
-                    { id: "c3q7", text: "Consider a Regular grammar defined by (Starting Symbol = $S$, Set of Non-Terminals = $\\{S, A\\}$, Set of Terminals = $\\{a, b\\}$, Production Rules = $\\{S \\rightarrow bS, S \\rightarrow aA, A \\rightarrow bA, A \\rightarrow b\\}$). Construct a FSA for this regular grammar and convert it to DFA if it is in NFA.", meta: "2081 Chaitra", done: false },
-                    { id: "c3q8", text: "Define Non-Deterministic Finite State Automata. Draw a transition diagram for Deterministic and Non-deterministic finite automata which accept a string containing 'ing' at the end of a string in a string of $\\{a-z\\}$, e.g., 'anything' but not 'anywhere'.", meta: "2080 Chaitra", done: false },
-                    { id: "c3q9", text: "Design a Finite State automata that accepts precisely those strings over $\\{a, b\\}$ that contains the substring 'bba'.", meta: "2079 Chaitra", done: false },
-                    { id: "c3q10", text: "Given a grammar make NDFA and convert it to equivalent DFA: $A \\rightarrow sA, A \\rightarrow bB, A \\rightarrow b, P \\rightarrow sP, P \\rightarrow bA, P \\rightarrow S$.", meta: "2079 Chaitra", done: false },
-                    { id: "c3q11", text: "Given a Language $L = \\{ W \\in \\{a,b\\}^* \\mid W \\text{ ends with 'ba'} \\}$. Write a regular expression and design a Finite state automata that accepts the language L.", meta: "2078 Chaitra", done: false },
-                    { id: "c3q12", text: "Design a FSA transition diagram that accepts the given set of string over $\\{a,b\\}$: i) which starts with ab and ends with baa. ii) where every b is followed by a.", meta: "2076 Baisakh", done: false },
-                    { id: "c3q13", text: "Let $L$ be the set of strings accepted by the FSA shown below. Now construct a FSA that accepts the strings $L^R = \\{X_n\\dots X_1 \\mid X_1\\dots X_n \\in L\\}$.", meta: "2075 Bhadra", done: false, imageUrl: "2075-Q4.png" }
-                ]
+            { 
+                id: "c1q3", 
+                text: "Check validity of the given statement using method of tableaux: $A \\lor B, A \\rightarrow C, \\sim C \\lor D$. Hence, $B \\rightarrow D$.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Method of Tableaux Setup:</strong><br>
+                           To prove validity, we negate the conclusion and show that all branches of the resulting tableau tree result in a contradiction (close).<br>
+                           Premises: $A \\lor B$, $A \\rightarrow C$, $\\sim C \\lor D$<br>
+                           Negated Conclusion: $\\sim (B \\rightarrow D) \\equiv B \\land \\sim D$<br><br>
+                           <strong>Tableau Expansion:</strong><br>
+                           1. $B$ (From negated conclusion)<br>
+                           2. $\\sim D$ (From negated conclusion)<br>
+                           3. $A \\lor B$ (Premise 1)<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;├── Branch 3.1: $A$<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;└── Branch 3.2: $B$<br><br>
+                           <em>Expand Premise 2 ($A \\rightarrow C \\equiv \\sim A \\lor C$) on Branch 3.1 ($A$):</em><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;├── Branch 3.1.1: $\\sim A$ (Closes with $A$ from 3.1)<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;└── Branch 3.1.2: $C$<br><br>
+                           <em>Expand Premise 3 ($\\sim C \\lor D$) on surviving Branch 3.1.2 ($C$):</em><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Branch 3.1.2.1: $\\sim C$ (Closes with $C$ from 3.1.2)<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Branch 3.1.2.2: $D$ (Closes with $\\sim D$ from step 2)<br><br>
+                           <em>Expand Premise 2 ($\\sim A \\lor C$) on Branch 3.2 ($B$):</em><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;├── Branch 3.2.1: $\\sim A$<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;└── Branch 3.2.2: $C$<br><br>
+                           <em>Expand Premise 3 ($\\sim C \\lor D$) on Branch 3.2.1 ($\\sim A$):</em><br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Branch 3.2.1.1: $\\sim C$ (Open path: $B, \\sim D, B, \\sim A, \\sim C$. No contradictions!)<br>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Branch 3.2.1.2: $D$ (Closes with $\\sim D$)<br><br>
+                           <strong>Verdict:</strong> Because Branch 3.2.1.1 remains open (no contradictions exist between $B, \\sim D, \\sim A, \\sim C$), the tableau does not fully close. Therefore, the argument $B \\rightarrow D$ is <strong>Invalid</strong>.`
             },
-            {
-                chapterName: "Chapter 4: Recurrence Relation and Algorithmic Analysis",
-                questions: [
-                    { id: "c4q1", text: "Solve the recurrence relation $a_n = 5a_{n-1} - 6a_{n-2} + 2^n$ with initial condition $a_0 = 1$ and $a_1 = 4$.", meta: "2083 Baishakh", done: false },
-                    { id: "c4q2", text: "Write an algorithm to perform sort operation using insertion sort. Search for key = 45 from the given data 92, 87, 32, 56, 57, 45, 11, 77, 28.", meta: "2083 Baishakh", done: false },
-                    { id: "c4q3", text: "Derive the explicit formula for the Fibonacci series using recurrence relation.", meta: "2082 Bhadra", done: false },
-                    { id: "c4q4", text: "Derive the worst-case time complexity for binary search algorithm. Sort the given data using bubble sort: 67, 45, 54, 2, 29.", meta: "2082 Bhadra", done: false },
-                    { id: "c4q5", text: "Find all the solutions of recurrence relation: $a_n = 3a_{n-1} + 4a_{n-2} + 3^n$ with initial conditions $a_0 = 1$ and $a_2 = 2$.", meta: "2081 Chaitra", done: false },
-                    { id: "c4q6", text: "Find all the solution of recurrence relation: $a_n = 8a_{n-2} - 16a_{n-4}$ with initial conditions $a_0=1, a_1=4, a_2=28$ and $a_3=32$.", meta: "2080 Chaitra", done: false },
-                    { id: "c4q7", text: "Find all solutions of the recurrence relation: $a_n = 2a_{n-1} + 2n^2$ with initial condition $a_1 = 4$.", meta: "2079 Chaitra", done: false },
-                    { id: "c4q8", text: "Find all the solution of the recurrence relation: $a_n = 6a_{n-1} - 8a_{n-2} + 3^n$, where the initial conditions: $a_0=4$ and $a_1=10$.", meta: "2078 Chaitra", done: false },
-                    { id: "c4q9", text: "Find all solutions of recurrence relation: $a_n = 4a_{n-1} - 4a_{n-2} + 3^n$. Also, find the solution with initial conditions: $a_0=1$ and $a_1=2$.", meta: "2077 Chaitra", done: false },
-                    { id: "c4q10", text: "Find the solution of recurrence relation of $a_n = 5a_{n-1} - 6a_{n-2} + 3n + 2^n$ with initial condition $a_0=0, a_1=1$, and $a_2=2$.", meta: "2075 Bhadra", done: false },
-                    { id: "c4q11", text: "What is recurrence relation? Solve the R-R given by $a_n = 5a_{n-1} - 6a_{n-2} + 6^n$ giving the all solutions of it.", meta: "2075 Baisakh", done: false }
-                ]
+            { 
+                id: "c1q4", 
+                text: "Determine whether the following system specifications are consistent or not: 'If the network is down, then users cannot access the cloud storage.' 'If users can access the cloud storage, then they can upload files.' 'If users cannot upload files, then the network is down.'", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define the Propositions:</strong><br>
+                           $D$: The network is down.<br>
+                           $C$: Users can access cloud storage.<br>
+                           $U$: Users can upload files.<br><br>
+                           <strong>2. Formalize Specifications:</strong><br>
+                           1. $D \\rightarrow \\sim C$<br>
+                           2. $C \\rightarrow U$<br>
+                           3. $\\sim U \\rightarrow D$<br><br>
+                           <strong>3. Consistency Check (Truth Table Method):</strong><br>
+                           A system is consistent if there is at least one row where all specifications evaluate to True ($T$).<br><br>
+                           $$
+                           \\begin{array}{|c|c|c|c|c|c|}
+                           \\hline
+                           D & C & U & D \\rightarrow \\sim C & C \\rightarrow U & \\sim U \\rightarrow D \\\\
+                           \\hline
+                           T & T & T & F & T & T \\\\
+                           T & T & F & F & F & T \\\\
+                           \\mathbf{T} & \\mathbf{F} & \\mathbf{T} & \\mathbf{T} & \\mathbf{T} & \\mathbf{T} \\\\
+                           T & F & F & T & T & T \\\\
+                           F & T & T & T & T & T \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> The system is <strong>Consistent</strong>. For example, if $D = True$, $C = False$, and $U = True$ (Network is down, users cannot access the cloud, but they can somehow upload files), all three system specifications hold true simultaneously without contradiction.`
             },
-            
-            {
-                chapterName: "Chapter 5: Graph Theory and Tree",
-                questions: [
-                    { id: "c5q1", text: "Define regular graph. Explain different graph representation techniques with example.", meta: "2083 Baishakh", done: false },
-                    { id: "c5q2", text: "State Dirac's and Ore's theorem. Is $K_5$ and $K_{3,3}$ planar graph? Justify your answer.", meta: "2083 Baishakh", done: false },
-                    { id: "c5q3", text: "Draw $W_6$ and write its incidence matrix. Find the minimum spanning tree using Prim's algorithm from the graph given below.", meta: "2083 Baishakh", done: false, imageUrl: "2083-Q12.png" },
-                    { id: "c5q4", text: "Find the Maximum flow for the network given below.", meta: "2083 Baishakh", done: false, imageUrl: "2083-Q13.png" },
-                    { id: "c5q5", text: "Define wheel graph. Draw 3-dimensional hypercube ($Q_3$). Show that the total number of edges in any complete graph is $\\frac{n(n-1)}{2}$.", meta: "2082 Bhadra", done: false },
-                    { id: "c5q6", text: "State and prove Euler's Formula for planar graph.", meta: "2082 Bhadra", done: false },
-                    { id: "c5q7", text: "What are saturated edges? State Max-Cut Min Flow theorem. Find the minimum spanning tree using Kruskal's algorithm from the graph given below.", meta: "2082 Bhadra", done: false, imageUrl: "2082-Q12.png" },
-                    { id: "c5q8", text: "Find the shortest distance from vertex A to all other vertex using Dijkstra's algorithm.", meta: "2082 Bhadra", done: false, imageUrl: "2082-Q13.png" },
-                    { id: "c5q9", text: "Discuss what is a regular graph with an example. Prove that $K_{3,3}$ is a non-planar graph.", meta: "2081 Chaitra", done: false },
-                    { id: "c5q10", text: "State handshaking theorem. Discuss the wheel graph with an example. Define Hamiltonian path and Hamiltonian circuit.", meta: "2081 Chaitra", done: false },
-                    { id: "c5q11", text: "Explain the Euler circuit and Hamilton circuit with an example. State if there is/are any necessary and the sufficient conditions for a graph to have Euler's and Hamilton's paths and circuits.", meta: "2080 Chaitra", done: false },
-                    { id: "c5q12", text: "Define Binary Tree, M-ary tree and Spanning tree. Find the minimal spanning tree from the graph given below.", meta: "2080 Chaitra", done: false, imageUrl: "2080-Q9.png" },
-                    { id: "c5q13", text: "Draw clear and labeled diagrams of Complete graph with 6 Vertices $K_6$ and 3-dimensional Hypercube ($Q_3$). Also write their Chromatic Numbers. Are the graphs $K_6$ and $Q_3$ planar?", meta: "2079 Chaitra", done: false },
-                    { id: "c5q14", text: "State Handshaking Algorithm for directed graph. Define Bipartite graph with a suitable example. Draw a figure for complete bipartite graph $K_{3,5}$ and determine its chromatic number.", meta: "2078 Chaitra", done: false },
-                    { id: "c5q15", text: "State and describe briefly the chromatic number of complete bipartite graph $K_{3,4}$ and cycle $C_5$. Define Planar graph and show that $K_5$ is not a planar graph.", meta: "2077 Chaitra", done: false },
-                    { id: "c5q16", text: "Prove the theorem, 'An undirected graph has an even number of vertices of odd degree.' Describe complete graph and bipartite graph.", meta: "2075 Bhadra", done: false }
-                ]
+            { 
+                id: "c1q5", 
+                text: "Using rules of inference, derive the conclusion to the given hypothesis: 'If today is Sunday then I will have a test in Discrete Structure and Microprocessor. If my Microprocessor instructor is busy then I will not have a test in Microprocessor. Today is Sunday and my Microprocessor instructor is busy'. Conclusion: 'I will have a test in Discrete Structure'.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define the Propositions:</strong><br>
+                           $S$: Today is Sunday.<br>
+                           $D$: I will have a test in Discrete Structure.<br>
+                           $M$: I will have a test in Microprocessor.<br>
+                           $B$: My Microprocessor instructor is busy.<br><br>
+                           <strong>2. Formalize Premises & Conclusion:</strong><br>
+                           Premise 1: $S \\rightarrow (D \\land M)$<br>
+                           Premise 2: $B \\rightarrow \\sim M$<br>
+                           Premise 3: $S \\land B$<br>
+                           Conclusion: $\\therefore D$<br><br>
+                           <strong>3. Step-by-Step Inference Proof:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Proposition} & \\text{Reason} \\\\
+                           \\hline
+                           1 & S \\land B & \\text{Premise 3} \\\\
+                           2 & S & \\text{Simplification from 1} \\\\
+                           3 & S \\rightarrow (D \\land M) & \\text{Premise 1} \\\\
+                           4 & D \\land M & \\text{Modus Ponens from 2 and 3} \\\\
+                           5 & D & \\text{Simplification from 4} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> The conclusion $D$ is successfully derived. (Note: Premise 2 is actually extraneous information provided in the question to act as a distractor, but the conclusion remains logically sound.)`
+            },
+            { 
+                id: "c1q6", 
+                text: "What do you mean by tautology, contradiction and contingency? Let $Q(x)$ be the statement '$x < 2$'. What is the truth value of the quantification $\\forall x Q(x)$, where the domain consists of all real numbers?", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Definitions:</strong><br>
+                           <ul>
+                               <li><strong>Tautology:</strong> A compound proposition that is always True, regardless of the truth values of its individual variables (e.g., $P \\lor \\sim P$).</li>
+                               <li><strong>Contradiction:</strong> A compound proposition that is always False, regardless of the truth values of its individual variables (e.g., $P \\land \\sim P$).</li>
+                               <li><strong>Contingency:</strong> A compound proposition that is neither a tautology nor a contradiction; its truth value depends on the specific truth values of its variables (e.g., $P \\rightarrow Q$).</li>
+                           </ul><br>
+                           <strong>Quantification Truth Value:</strong><br>
+                           Statement: $Q(x): x < 2$<br>
+                           Domain: $\\mathbb{R}$ (All real numbers)<br>
+                           Quantification: $\\forall x Q(x)$ means "For every real number $x$, $x$ is less than 2."<br><br>
+                           <strong>Verdict:</strong> The truth value is <strong>False</strong>. We can prove this by providing a single counterexample. Let $x = 3$. Since $3 \\not< 2$, the universal quantification fails.`
+            },
+            { 
+                id: "c1q7", 
+                text: "Construct an argument using rules of inference to show that the hypotheses 'if it does not rain or if it is not foggy, then the sailing race will be held and the lifesaving demonstration will go on,' 'If the sailing race is held, then the trophy will be awarded' and 'The trophy was not awarded' imply the conclusion 'It rained'.", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>1. Define the Propositions:</strong><br>
+                           $R$: It rained.<br>
+                           $F$: It is foggy.<br>
+                           $S$: The sailing race will be held.<br>
+                           $L$: The lifesaving demonstration will go on.<br>
+                           $T$: The trophy will be awarded.<br><br>
+                           <strong>2. Formalize Premises:</strong><br>
+                           Premise 1: $(\\sim R \\lor \\sim F) \\rightarrow (S \\land L)$<br>
+                           Premise 2: $S \\rightarrow T$<br>
+                           Premise 3: $\\sim T$<br>
+                           Conclusion: $\\therefore R$<br><br>
+                           <strong>3. Inference Proof:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Proposition} & \\text{Reason} \\\\
+                           \\hline
+                           1 & S \\rightarrow T & \\text{Premise 2} \\\\
+                           2 & \\sim T & \\text{Premise 3} \\\\
+                           3 & \\sim S & \\text{Modus Tollens from 1 and 2} \\\\
+                           4 & \\sim S \\lor \\sim L & \\text{Addition on 3} \\\\
+                           5 & \\sim (S \\land L) & \\text{De Morgan's Law on 4} \\\\
+                           6 & (\\sim R \\lor \\sim F) \\rightarrow (S \\land L) & \\text{Premise 1} \\\\
+                           7 & \\sim (\\sim R \\lor \\sim F) & \\text{Modus Tollens from 5 and 6} \\\\
+                           8 & \\sim\\sim R \\land \\sim\\sim F & \\text{De Morgan's Law on 7} \\\\
+                           9 & R \\land F & \\text{Double Negation on 8} \\\\
+                           10 & R & \\text{Simplification from 9} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> The conclusion $R$ (It rained) is validly derived.`
+            },
+            { 
+                id: "c1q8", 
+                text: "Define Valid Argument in Logic. 'Somebody in this class enjoys whale watching. Every person who enjoys whale watching cares about ocean pollution. Therefore, there is a person in this class who cares about ocean pollution.' Show whether the given argument is valid or not using rules of inference.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Definition:</strong><br>
+                           An argument is <strong>valid</strong> if and only if the conclusion is guaranteed to be True whenever all the premises are True. It is structurally impossible for a valid argument to have True premises and a False conclusion.<br><br>
+                           <strong>1. Define Predicates:</strong><br>
+                           Domain: All people.<br>
+                           $C(x)$: $x$ is in this class.<br>
+                           $W(x)$: $x$ enjoys whale watching.<br>
+                           $O(x)$: $x$ cares about ocean pollution.<br><br>
+                           <strong>2. Formalize Premises:</strong><br>
+                           Premise 1: $\\exists x (C(x) \\land W(x))$<br>
+                           Premise 2: $\\forall x (W(x) \\rightarrow O(x))$<br>
+                           Conclusion: $\\exists x (C(x) \\land O(x))$<br><br>
+                           <strong>3. Inference Proof:</strong><br>
+                           $$
+                           \\begin{array}{|l|l|l|}
+                           \\hline
+                           \\text{Step} & \\text{Predicate} & \\text{Reason} \\\\
+                           \\hline
+                           1 & \\exists x (C(x) \\land W(x)) & \\text{Premise 1} \\\\
+                           2 & C(a) \\land W(a) & \\text{Existential Instantiation (for some person } a) \\\\
+                           3 & W(a) & \\text{Simplification from 2} \\\\
+                           4 & C(a) & \\text{Simplification from 2} \\\\
+                           5 & \\forall x (W(x) \\rightarrow O(x)) & \\text{Premise 2} \\\\
+                           6 & W(a) \\rightarrow O(a) & \\text{Universal Instantiation from 5} \\\\
+                           7 & O(a) & \\text{Modus Ponens from 3 and 6} \\\\
+                           8 & C(a) \\land O(a) & \\text{Conjunction from 4 and 7} \\\\
+                           9 & \\exists x (C(x) \\land O(x)) & \\text{Existential Generalization from 8} \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <strong>Verdict:</strong> The argument is <strong>Valid</strong>.`
             }
-        ];
+        ]
+    }
+];
+        // ----------------------------------------------------
 
         let trackerData = [];
         let activeChapterIndex = 0;
+        let currentYearFilter = "All";
 
         function init() {
-            const savedData = localStorage.getItem('dsTrackerData_v5');
+            const savedData = localStorage.getItem('dsTrackerData_v8');
             if (savedData) {
                 trackerData = JSON.parse(savedData);
+                // Sync new data structure if questions were added
+                if(trackerData.length !== courseData.length) trackerData = courseData;
             } else {
                 trackerData = courseData;
             }
-            renderSidebar();
-            renderContent(activeChapterIndex);
+            
+            populateYearDropdown();
             updateOverallProgress();
+            renderSidebar();
+            if (trackerData.length > 0) renderQuestions();
         }
 
         function saveData() {
-            localStorage.setItem('dsTrackerData_v5', JSON.stringify(trackerData));
+            localStorage.setItem('dsTrackerData_v8', JSON.stringify(trackerData));
             updateOverallProgress();
-            renderSidebar(); 
+            renderSidebar();
+            
+            if (trackerData.length > 0) {
+                const chapter = trackerData[activeChapterIndex];
+                const completedQ = chapter.questions.filter(q => q.done).length;
+                document.getElementById('chapter-stats-text').innerText = `${completedQ} / ${chapter.questions.length} Questions Completed`;
+            }
+        }
+
+        function populateYearDropdown() {
+            const select = document.getElementById('year-filter');
+            const years = new Set();
+            
+            trackerData.forEach(chapter => {
+                chapter.questions.forEach(q => {
+                    const yearMatch = q.meta.match(/\d{4}/);
+                    if (yearMatch) years.add(yearMatch[0]);
+                });
+            });
+
+            const sortedYears = Array.from(years).sort((a, b) => b - a);
+            sortedYears.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.innerText = year;
+                select.appendChild(option);
+            });
         }
 
         function updateOverallProgress() {
@@ -476,49 +743,59 @@
 
                 const btn = document.createElement('button');
                 btn.className = `chapter-btn ${index === activeChapterIndex ? 'active' : ''}`;
-                
                 const shortName = chapter.chapterName.split(':')[1] || chapter.chapterName;
 
                 btn.innerHTML = `
-                    <span>${shortName}</span>
+                    <span>${shortName.trim()}</span>
                     <span class="chapter-progress-badge">${completedQ}/${totalQ}</span>
                 `;
                 
                 btn.onclick = () => {
                     activeChapterIndex = index;
                     renderSidebar();
-                    renderContent(index);
+                    renderQuestions();
                 };
 
                 chapterList.appendChild(btn);
             });
         }
 
-        function renderContent(chapterIndex) {
-            const chapter = trackerData[chapterIndex];
+        function renderQuestions() {
+            const chapter = trackerData[activeChapterIndex];
             document.getElementById('current-chapter-title').innerText = chapter.chapterName;
             
+            const completedQ = chapter.questions.filter(q => q.done).length;
+            document.getElementById('chapter-stats-text').innerText = `${completedQ} / ${chapter.questions.length} Questions Completed`;
+
             const container = document.getElementById('questions-container');
             container.innerHTML = '';
+            currentYearFilter = document.getElementById('year-filter').value;
 
-            chapter.questions.forEach((q, qIndex) => {
+            const filteredQuestions = chapter.questions.filter(q => {
+                if (currentYearFilter === "All") return true;
+                return q.meta.includes(currentYearFilter);
+            });
+
+            if (filteredQuestions.length === 0) {
+                container.innerHTML = `<div class="empty-state">No questions found for the selected year in this chapter.</div>`;
+                return;
+            }
+
+            filteredQuestions.forEach((q) => {
+                const originalIndex = chapter.questions.findIndex(oq => oq.id === q.id);
                 const card = document.createElement('div');
                 card.className = `question-card ${q.done ? 'completed' : ''}`;
 
                 const checkboxWrapper = document.createElement('div');
                 checkboxWrapper.className = 'checkbox-wrapper';
-                
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.checked = q.done;
                 
                 checkbox.addEventListener('change', (e) => {
-                    trackerData[chapterIndex].questions[qIndex].done = e.target.checked;
-                    if(e.target.checked) {
-                        card.classList.add('completed');
-                    } else {
-                        card.classList.remove('completed');
-                    }
+                    trackerData[activeChapterIndex].questions[originalIndex].done = e.target.checked;
+                    if(e.target.checked) card.classList.add('completed');
+                    else card.classList.remove('completed');
                     saveData();
                 });
 
@@ -526,15 +803,16 @@
 
                 const contentDiv = document.createElement('div');
                 contentDiv.className = 'question-content';
+
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'question-meta';
+                metaDiv.innerText = q.meta;
                 
                 const textDiv = document.createElement('div');
                 textDiv.className = 'question-text';
                 textDiv.innerHTML = q.text;
 
-                const metaDiv = document.createElement('div');
-                metaDiv.className = 'question-meta';
-                metaDiv.innerText = `Source: ${q.meta}`;
-
+                contentDiv.appendChild(metaDiv);
                 contentDiv.appendChild(textDiv);
                 
                 if (q.imageUrl && q.imageUrl.trim() !== "") {
@@ -545,8 +823,10 @@
                     img.onerror = function() {
                         this.style.display = 'none';
                         const instructions = document.createElement('div');
-                        instructions.className = 'img-placeholder';
-                        instructions.innerHTML = `[Image Missing]<br>Please select an image for <span class="img-filename">${q.imageUrl}</span>`;
+                        instructions.className = 'empty-state';
+                        instructions.style.marginTop = '15px';
+                        instructions.style.padding = '20px';
+                        instructions.innerHTML = `Missing Upload: <strong>${q.imageUrl}</strong><br><br>Please select an image file:`;
 
                         const upload = document.createElement('input');
                         upload.type = 'file';
@@ -557,7 +837,6 @@
                         upload.addEventListener('change', (event) => {
                             const file = event.target.files[0];
                             if (!file || !file.type.startsWith('image/')) return;
-
                             const reader = new FileReader();
                             reader.onload = () => {
                                 q.imageData = reader.result;
@@ -565,9 +844,6 @@
                                 img.style.display = 'block';
                                 instructions.remove();
                                 saveData();
-                            };
-                            reader.onerror = () => {
-                                instructions.firstChild.textContent = 'Unable to read that file. Please select another image.';
                             };
                             reader.readAsDataURL(file);
                         });
@@ -579,7 +855,27 @@
                     contentDiv.appendChild(img);
                 }
 
-                contentDiv.appendChild(metaDiv);
+                if (q.solution) {
+                    const solBtn = document.createElement('button');
+                    solBtn.className = 'solution-btn';
+                    solBtn.innerText = 'Show Solution';
+                    
+                    const solDiv = document.createElement('div');
+                    solDiv.className = 'solution-content';
+                    solDiv.innerHTML = q.solution;
+
+                    solBtn.onclick = () => {
+                        solDiv.classList.toggle('show');
+                        solBtn.innerText = solDiv.classList.contains('show') ? 'Hide Solution' : 'Show Solution';
+                        if (window.MathJax && solDiv.classList.contains('show')) {
+                            window.MathJax.typesetPromise([solDiv]);
+                        }
+                    };
+
+                    contentDiv.appendChild(solBtn);
+                    contentDiv.appendChild(solDiv);
+                }
+
                 card.appendChild(checkboxWrapper);
                 card.appendChild(contentDiv);
                 container.appendChild(card);
