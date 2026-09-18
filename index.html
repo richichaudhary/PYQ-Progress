@@ -1092,13 +1092,545 @@
                            Assume $n$ is odd ($n = 2k+1$).<br>
                            $7(2k+1) + 4 = 14k + 7 + 4 = 14k + 11 = 2(7k + 5) + 1$, which is odd.<br>
                            Since the negation of the conclusion leads to the negation of the premise, Part 2 holds.`
+            },
+            {
+        chapterName: "Chapter 3: Automata Theory, Regular Language and Grammar",
+        questions: [
+            { 
+                id: "c3q1", 
+                text: "Convert the following NDFA into equivalent DFA.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                imageUrl: "2083-Q5.png",
+                solution: `<strong>NFA to DFA Conversion Steps:</strong><br>
+                           <strong>1. Find Epsilon-Closure (if applicable) and Initial State:</strong><br>
+                           Let $q_0$ be the start state of the NFA. The start state of the DFA is $\\text{D}_0 = \\text{E-closure}(q_0)$.<br><br>
+                           <strong>2. Construct Transition Table:</strong><br>
+                           For each new DFA state (which represents a set of NFA states), compute its transitions for every alphabet symbol $a \\in \\Sigma$ by taking the union of transitions from each NFA state in that set.<br>
+                           $$\\delta_{D}(S, a) = \\bigcup_{p \\in S} \\text{E-closure}(\\delta(p, a))$$<br><br>
+                           <strong>3. Identify Accepting States:</strong><br>
+                           Any DFA state set that contains at least one final/accepting state from the original NFA becomes an accepting state in the DFA.<br><br>
+                           <em>Refer to the diagram <strong>2083-Q5.png</strong> for the specific state names and transition arcs to map out the final subset table.</em>`
+            },
+            { 
+                id: "c3q2", 
+                text: "Derive the regular expression for the given automata.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                imageUrl: "2082-Q6.png",
+                solution: `<strong>State Elimination Method (Arden's Theorem):</strong><br>
+                           To derive a regular expression from a finite automaton (as shown in <strong>2082-Q6.png</strong>):<br>
+                           1. Add a unique start state $S_{in}$ with an $\\epsilon$-transition to the original start state, and a new final state $S_{out}$ with $\\epsilon$-transitions from all original accepting states.<br>
+                           2. Successively eliminate intermediate states while updating transition labels using regular expression unions ($+$), concatenations ($\\cdot$), and Kleene stars ($*$).<br>
+                           3. Express the final transition label leading into $S_{out}$ as the resulting regular expression.`
+            },
+            { 
+                id: "c3q3", 
+                text: "Design a deterministic finite automata that accepts all the strings that does not starts with aba over $\\Sigma = \\{a,b\\}$. Also check for string $w_1 = abbabab$ and $w_2$ is accepted or rejected.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>DFA Design (Does not start with 'aba'):</strong><br>
+                           - **States:** $Q = \\{q_0, q_1, q_2, q_{acc}, q_{rej}\\}$<br>
+                           - **Start State:** $q_0$<br>
+                           - **Accepting States:** $F = \\{q_0, q_1, q_2, q_{acc}\\}$ (All states except the dead-rejection state $q_{rej}$).<br><br>
+                           <strong>Transitions:</strong><br>
+                           - From $q_0$: on 'a' $\\rightarrow q_1$, on 'b' $\\rightarrow q_{acc}$<br>
+                           - From $q_1$: on 'a' $\\rightarrow q_{acc}$, on 'b' $\\rightarrow q_2$<br>
+                           - From $q_2$: on 'a' $\\rightarrow q_{rej}$, on 'b' $\\rightarrow q_{acc}$<br>
+                           - From $q_{acc}$ (Safe state): loops on 'a', 'b' $\\rightarrow q_{acc}$<br>
+                           - From $q_{rej}$ (Dead state): loops on 'a', 'b' $\\rightarrow q_{rej}$<br><br>
+                           <strong>String Simulation:</strong><br>
+                           - $w_1 = \\text{abbabab}$: Starts with 'ab...', which routes through $q_0 \\rightarrow q_1 \\rightarrow q_2$ and then enters the safe accept loop ($q_{acc}$). <strong>Accepted.</strong>`
+            },
+            { 
+                id: "c3q4", 
+                text: "Write a regular expression for the language that accepts all the string that does not contains three consecutive b over $\\Sigma = \\{a,b\\}$. Write a CFG that generates the palindrome string of even length over the alphabet $\\Sigma = \\{0,1\\}$. Also generate the string $w=10100101$ using right most derivation and draw the parse tree.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>1. Regular Expression (No 3 consecutive 'b's):</strong><br>
+                           $$[a + b(a + ba)]^* [\\lambda + b + bb]$$<br><br>
+                           <strong>2. CFG for Even-Length Palindromes over $\\{0,1\\}$:</strong><br>
+                           $$S \\rightarrow 0S0 \\mid 1S1 \\mid \\lambda$$<br><br>
+                           <strong>3. Rightmost Derivation for $w = 10100101$:</strong><br>
+                           $S \\implies 1S1$<br>
+                           $\\implies 10S01$<br>
+                           $\\implies 101S101$<br>
+                           $\\implies 1010S0101$<br>
+                           $\\implies 1010\\lambda0101 = 10100101$<br><br>
+                           <strong>4. Parse Tree Structure:</strong><br>
+                           Root: $S$<br>
+                           &nbsp;&nbsp;├── $1$<br>
+                           &nbsp;&nbsp;├── $S$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── $0$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── $S$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── $1$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── $S$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── $0$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;├── $\\lambda$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── $0$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── $1$<br>
+                           &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;└── $0$<br>
+                           &nbsp;&nbsp;└── $1$`
+            },
+            { 
+                id: "c3q5", 
+                text: "Show that regular language is closed under Kleene star and complement operation.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>1. Closure under Kleene Star ($L^*$):</strong><br>
+                           Let $L$ be recognized by an NFA $M = (Q, \\Sigma, \\delta, q_0, F)$. We construct a new NFA $M'$ for $L^*$ by adding a new start state $S_{new}$ and a new accept state $F_{new}$. Draw an $\\epsilon$-transition from $S_{new}$ to $q_0$ and to $F_{new}$ (allowing empty string $\\lambda$), and draw $\\epsilon$-transitions from every old accepting state in $F$ back to $q_0$ (to allow repetition) and to $F_{new}$.<br><br>
+                           <strong>2. Closure under Complementation ($\\overline{L}$):</strong><br>
+                           Let $L$ be a regular language recognized by a <em>complete</em> DFA $M = (Q, \\Sigma, \\delta, q_0, F)$. To accept the complement language $\\overline{L}$ (strings not in $L$), we swap the accepting and non-accepting states. The new DFA is $M' = (Q, \\Sigma, \\delta, q_0, Q \\setminus F)$. Thus, any string rejected by $M$ is accepted by $M'$.`
+            },
+            { 
+                id: "c3q6", 
+                text: "Design finite state automata that accepts precisely those strings over $\\{a, b\\}$ that ends with the substring 'baa'. Your design should include the proper definition of the finite state automaton, transition table and the transition diagram.", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>1. Formal Definition:</strong><br>
+                           DFA $M = (Q, \\Sigma, \\delta, q_0, F)$ where $Q = \\{q_0, q_1, q_2, q_3\\}$, $\\Sigma = \\{a,b\\}$, start state is $q_0$, and final state $F = \\{q_3\\}$.<br><br>
+                           <strong>2. Transition Table:</strong><br>
+                           $$
+                           \\begin{array}{|c|c|c|}
+                           \\hline
+                           \\text{State} & \\text{Input } a & \\text{Input } b \\\\
+                           \\hline
+                           \\rightarrow q_0 & q_1 & q_0 \\\\
+                           q_1 & q_1 & q_2 \\\\
+                           q_2 & q_3 & q_0 \\\\
+                           *q_3 & q_1 & q_2 \\\\
+                           \\hline
+                           \\end{array}
+                           $$<br>
+                           <em>(Where $\\rightarrow$ denotes start state and $*$ denotes accepting state.)</em>`
+            },
+            { 
+                id: "c3q7", 
+                text: "Consider a Regular grammar defined by (Starting Symbol = $S$, Set of Non-Terminals = $\\{S, A\\}$, Set of Terminals = $\\{a, b\\}$, Production Rules = $\\{S \\rightarrow bS, S \\rightarrow aA, A \\rightarrow bA, A \\rightarrow b\\}$). Construct a FSA for this regular grammar and convert it to DFA if it is in NFA.", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>1. NFA Construction from Right-Linear Grammar:</strong><br>
+                           - Productions: $S \\rightarrow bS \\mid aA$, $A \\rightarrow bA \\mid b$<br>
+                           - States: $\\{S, A, F\\}$ (where $F$ is an added final sink state for terminal productions).<br>
+                           - Transitions:<br>
+                             &nbsp;&nbsp; $\\delta(S, b) = \\{S\}$<br>
+                             &nbsp;&nbsp; $\\delta(S, a) = \\{A\}$<br>
+                             &nbsp;&nbsp; $\\delta(A, b) = \\{A, F\}$ (since $A \\rightarrow b$ leads to termination/acceptance)<br><br>
+                           <strong>2. NFA to DFA Conversion:</strong><br>
+                           - Start State: $\\{S\\}$<br>
+                           - On input $a$: $\\{A\}$<br>
+                           - On input $b$: $\\{S\}$<br>
+                           - From state $\\{A\}$: on $a \\rightarrow \\emptyset$, on $b \\rightarrow \\{A, F\}$ (Accepting).<br>
+                           The resulting DFA cleanly separates tracking loops for leading $b$'s and trailing $b$'s.`
+            },
+            { 
+                id: "c3q8", 
+                text: "Define Non-Deterministic Finite State Automata. Draw a transition diagram for Deterministic and Non-deterministic finite automata which accept a string containing 'ing' at the end of a string in a string of $\\{a-z\\}$, e.g., 'anything' but not 'anywhere'.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Definition of NDFA:</strong><br>
+                           An NDFA is a 5-tuple $(Q, \\Sigma, \\delta, q_0, F)$ where the transition function maps to a <em>set</em> of states: $\\delta: Q \\times (\\Sigma \\cup \\{\\lambda\\}) \\rightarrow \\mathcal{P}(Q)$. It can have multiple choices for a single input symbol or transition without input ($\\lambda$-transitions).<br><br>
+                           <strong>DFA/NDFA Concept ('ing' suffix):</strong><br>
+                           - State $q_0$ (Start): Loops on all letters $a-z$ except 'i'. If 'i' $\\rightarrow q_1$.<br>
+                           - State $q_1$: If 'n' $\\rightarrow q_2$, else loops back appropriately.<br>
+                           - State $q_2$: If 'g' $\\rightarrow q_3$ (Accepting state).<br>
+                           - State $q_3$ (Accept): If another letter comes in, it can loop back or reset depending on whether the suffix restarts.`
+            },
+            { 
+                id: "c3q9", 
+                text: "Design a Finite State automata that accepts precisely those strings over $\\{a, b\\}$ that contains the substring 'bba'.", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>DFA Design (Contains Substring 'bba'):</strong><br>
+                           - States: $q_0$ (Start), $q_1$ (Saw 'b'), $q_2$ (Saw 'bb'), $q_3$ (Accept: Saw 'bba').<br>
+                           - Transitions:<br>
+                             &nbsp;&nbsp; $q_0$: on 'b' $\\rightarrow q_1$, on 'a' $\\rightarrow q_0$<br>
+                             &nbsp;&nbsp; $q_1$: on 'b' $\\rightarrow q_2$, on 'a' $\\rightarrow q_0$<br>
+                             &nbsp;&nbsp; $q_2$: on 'a' $\\rightarrow q_3$, on 'b' $\\rightarrow q_2$ (stays on 'bb')<br>
+                             &nbsp;&nbsp; $q_3$ (Accept): loops on 'a', 'b' $\\rightarrow q_3$<br>
+                           The machine locks into the accepting state $q_3$ the moment 'bba' is completed.`
+            },
+            { 
+                id: "c3q10", 
+                text: "Given a grammar make NDFA and convert it to equivalent DFA: $A \\rightarrow sA \\mid bB \\mid b$, $P \\rightarrow sP \\mid bA \\mid S$.", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>Conversion Procedure:</strong><br>
+                           Using standard right-linear grammar rules, non-terminals map directly to states, and terminal transitions map paths between states. The terminating rules (e.g., $A \\rightarrow b$) point directly to an accepting sink state $F$. Subsetting the resulting NFA states yields the equivalent DFA transition table.`
+            },
+            { 
+                id: "c3q11", 
+                text: "Given a Language $L = \\{ W \\in \\{a,b\\}^* \\mid W \\text{ ends with 'ba'} \\}$. Write a regular expression and design a Finite state automata that accepts the language L.", 
+                meta: "2078 Chaitra", 
+                done: false,
+                solution: `<strong>1. Regular Expression:</strong><br>
+                           $$(a + b)^* ba$$<br>
+                           <strong>2. DFA Design:</strong><br>
+                           - $q_0$ (Start): Loops on 'a', goes to $q_1$ on 'b'.<br>
+                           - $q_1$: Goes to $q_0$ on 'a', loops on 'b' (since 'bb' ends in 'b').<br>
+                           - $q_2$ (Accept): Reached from $q_1$ on input 'a'. From $q_2$, input 'b' goes back to $q_1$, and input 'a' goes back to $q_0$.`
+            },
+            { 
+                id: "c3q12", 
+                text: "Design a FSA transition diagram that accepts the given set of string over $\\{a,b\\}$: i) which starts with ab and ends with baa. ii) where every b is followed by a.", 
+                meta: "2076 Baisakh", 
+                done: false,
+                solution: `<strong>Design Breakdown:</strong><br>
+                           <strong>i) Starts with 'ab' and ends with 'baa':</strong><br>
+                           Requires chaining initial validation states for prefix 'ab' into a central processing body that tracks the suffix ending 'baa'.<br><br>
+                           <strong>ii) Every 'b' is followed by 'a':</strong><br>
+                           - $q_0$ (Start/Accept): On 'a' $\\rightarrow q_0$, on 'b' $\\rightarrow q_1$.<br>
+                           - $q_1$ (Accept): On 'a' $\\rightarrow q_0$ (successfully paired 'ba'), on 'b' $\\rightarrow q_{dead}$ (illegal 'bb').<br>
+                           - $q_{dead}$: Traps any violation.`
+            },
+            { 
+                id: "c3q13", 
+                text: "Let $L$ be the set of strings accepted by the FSA shown below. Now construct a FSA that accepts the strings $L^R = \\{X_n\\dots X_1 \\mid X_1\\dots X_n \\in L\\}.", 
+                meta: "2075 Bhadra", 
+                done: false,
+                imageUrl: "2075-Q4.png",
+                solution: `<strong>Reversed Language Construction ($L^R$):</strong><br>
+                           To construct an automaton for the reversal of a regular language ($L^R$):<br>
+                           1. Reverse the direction of all transition arrows in the original FSA from <strong>2075-Q4.png</strong>.<br>
+                           2. Swap the start state and the accepting state (make the old start state the new single accepting state, and create a new start state with $\\epsilon$-transitions pointing to all old accepting states).`
+            },
+            {
+        chapterName: "Chapter 4: Recurrence Relation and Algorithmic Analysis",
+        questions: [
+            { 
+                id: "c4q1", 
+                text: "Solve the recurrence relation $a_n = 5a_{n-1} - 6a_{n-2} + 2^n$ with initial condition $a_0 = 1$ and $a_1 = 4$.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           <strong>1. Find the Associated Homogeneous Equation:</strong><br>
+                           $a_n - 5a_{n-1} + 6a_{n-2} = 0$<br>
+                           Characteristic equation: $r^2 - 5r + 6 = 0$<br>
+                           $(r - 2)(r - 3) = 0 \\implies r_1 = 2, r_2 = 3$<br>
+                           Homogeneous solution: $a_n^{(h)} = c_1(2^n) + c_2(3^n)$<br><br>
+                           <strong>2. Find the Particular Solution ($a_n^{(p)}$):</strong><br>
+                           Due to the non-homogeneous term $2^n$ (which matches root $r=2$), multiply trial solution by $n$:<br>
+                           $a_n^{(p)} = c n 2^n$<br>
+                           Substitute into the recurrence relation:<br>
+                           $c n 2^n - 5c(n-1)2^{n-1} + 6c(n-2)2^{n-2} = 2^n$<br>
+                           Dividing through by $2^{n-2}$:<br>
+                           $4cn - 10c(n-1) + 6c(n-2) = 4$<br>
+                           $4cn - 10cn + 10c + 6cn - 12c = 4 \\implies -2c = 4 \\implies c = -2$<br>
+                           So, $a_n^{(p)} = -2n 2^n$<br><br>
+                           <strong>3. General Solution:</strong><br>
+                           $a_n = c_1(2^n) + c_2(3^n) - 2n 2^n$<br><br>
+                           <strong>4. Apply Initial Conditions ($a_0 = 1, a_1 = 4$):</strong><br>
+                           - For $n=0$: $c_1 + c_2 = 1$<br>
+                           - For $n=1$: $2c_1 + 3c_2 - 4 = 4 \\implies 2c_1 + 3c_2 = 8$<br>
+                           Solving the linear system yields $c_1 = -5$ and $c_2 = 6$.<br>
+                           <strong>Final Solution:</strong> $a_n = -5(2^n) + 6(3^n) - 2n 2^n$.`
+            },
+            { 
+                id: "c4q2", 
+                text: "Write an algorithm to perform sort operation using insertion sort. Search for key = 45 from the given data 92, 87, 32, 56, 57, 45, 11, 77, 28.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>1. Insertion Sort Algorithm:</strong><br>
+                           <pre style="background:#f1f5f9; padding: 10px; border-radius:6px; font-size:0.85rem;">
+for i = 1 to length(A) - 1
+    key = A[i]
+    j = i - 1
+    while j >= 0 and A[j] > key
+        A[j + 1] = A[j]
+        j = j - 1
+    A[j + 1] = key
+                           </pre><br>
+                           <strong>2. Search Trace for Key = 45:</strong><br>
+                           Initial Data: $[92, 87, 32, 56, 57, 45, 11, 77, 28]$<br>
+                           Sorted Array via Insertion Sort: $[11, 28, 32, 45, 56, 57, 77, 87, 92]$<br>
+                           Performing search for key $45$ in the sorted array reveals it exists at index position <strong>3</strong> (4th element).`
+            },
+            { 
+                id: "c4q3", 
+                text: "Derive the explicit formula for the Fibonacci series using recurrence relation.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Derivation using Characteristic Roots (Binet's Formula):</strong><br>
+                           Recurrence relation: $f_n = f_{n-1} + f_{n-2}$ with $f_0 = 0, f_1 = 1$.<br>
+                           Characteristic equation: $r^2 - r - 1 = 0$<br>
+                           Roots using quadratic formula: $r = \\frac{1 \\pm \\sqrt{5}}{2}$ (let $\\phi = \\frac{1+\\sqrt{5}}{2}$ and $\\hat{\\phi} = \\frac{1-\\sqrt{5}}{2}$).<br>
+                           General form: $f_n = c_1 \\phi^n + c_2 \\hat{\\phi}^n$<br>
+                           Using initial conditions ($f_0 = 0, f_1 = 1$), we solve for constants to yield Binet's explicit formula:<br>
+                           $$f_n = \\frac{\\phi^n - \\hat{\\phi}^n}{\\sqrt{5}} = \\frac{1}{\\sqrt{5}} \\left[ \\left(\\frac{1+\\sqrt{5}}{2}\\right)^n - \\left(\\frac{1-\\sqrt{5}}{2}\\right)^n \\right]$$`
+            },
+            { 
+                id: "c4q4", 
+                text: "Derive the worst-case time complexity for binary search algorithm. Sort the given data using bubble sort: 67, 45, 54, 2, 29.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>1. Binary Search Worst-Case Time Complexity Derivation:</strong><br>
+                           In binary search, the search space is divided by 2 at each step. Let $n$ be the number of elements. The recurrence relation for the worst-case comparison count is:<br>
+                           $T(n) = T(n/2) + 1$ with $T(1) = 1$.<br>
+                           Using unrolling / substitution:<br>
+                           $T(n) = [T(n/4) + 1] + 1 = T(n/4) + 2$<br>
+                           $= T(n/2^k) + k$<br>
+                           Set $n/2^k = 1 \\implies k = \\log_2 n$.<br>
+                           Therefore, $T(n) = T(1) + \\log_2 n = \\mathcal{O}(\\log n)$.<br><br>
+                           <strong>2. Bubble Sort Trace ($67, 45, 54, 2, 29$):</strong><br>
+                           - Pass 1: $[45, 54, 2, 29, 67]$<br>
+                           - Pass 2: $[45, 2, 29, 54, 67]$<br>
+                           - Pass 3: $[2, 29, 45, 54, 67]$ (Fully sorted)`
+            },
+            { 
+                id: "c4q5", 
+                text: "Find all the solutions of recurrence relation: $a_n = 3a_{n-1} + 4a_{n-2} + 3^n$ with initial conditions $a_0 = 1$ and $a_2 = 2$.", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           1. Homogeneous equation: $r^2 - 3r - 4 = 0 \\implies (r-4)(r+1) = 0 \\implies r = 4, -1$.<br>
+                              $a_n^{(h)} = c_1(4^n) + c_2(-1)^n$<br>
+                           2. Particular solution: Since $3^n$ is not a root of the characteristic equation, try $a_n^{(p)} = c 3^n$.<br>
+                              $c 3^n = 3(c 3^{n-1}) + 4(c 3^{n-2}) + 3^n$<br>
+                              Divide by $3^{n-2}$: $9c = 9c + 12c + 9 \\implies 12c = -9 \\implies c = -3/4$.<br>
+                           3. General solution + Initial conditions calculation yields constants $c_1$ and $c_2$.`
+            },
+            { 
+                id: "c4q6", 
+                text: "Find all the solution of recurrence relation: $a_n = 8a_{n-2} - 16a_{n-4}$ with initial conditions $a_0=1, a_1=4, a_2=28$ and $a_3=32$.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           Rewrite as: $a_n - 8a_{n-2} + 16a_{n-4} = 0$.<br>
+                           Characteristic equation: $r^4 - 8r^2 + 16 = 0 \\implies (r^2 - 4)^2 = 0 \\implies (r-2)^2(r+2)^2 = 0$.<br>
+                           Roots: $r = 2$ (multiplicity 2) and $r = -2$ (multiplicity 2).<br>
+                           General solution: $a_n = (c_1 + c_2 n)2^n + (c_3 + c_4 n)(-2)^n$.<br>
+                           Substitute the four initial conditions to solve for $c_1, c_2, c_3, c_4$.`
+            },
+            { 
+                id: "c4q7", 
+                text: "Find all solutions of the recurrence relation: $a_n = 2a_{n-1} + 2n^2$ with initial condition $a_1 = 4$.", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           1. Homogeneous part: $r - 2 = 0 \\implies a_n^{(h)} = c_1(2^n)$.<br>
+                           2. Non-homogeneous term is $2n^2$ (a polynomial of degree 2). Try $a_n^{(p)} = An^2 + Bn + C$.<br>
+                           Substitute into $a_n - 2a_{n-1} = 2n^2$, equate coefficients to find $A = -2, B = -6, C = -7$.<br>
+                           3. General solution: $a_n = c_1(2^n) - 2n^2 - 6n - 7$. Use $a_1=4$ to find $c_1$.`
+            },
+            { 
+                id: "c4q8", 
+                text: "Find all the solution of the recurrence relation: $a_n = 6a_{n-1} - 8a_{n-2} + 3^n$, where the initial conditions: $a_0=4$ and $a_1=10$.", 
+                meta: "2078 Chaitra", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           - Characteristic equation: $r^2 - 6r + 8 = 0 \\implies (r-2)(r-4) = 0 \\implies r=2, 4$.<br>
+                           - $a_n^{(h)} = c_1(2^n) + c_2(4^n)$.<br>
+                           - Particular solution for $3^n$: Try $a_n^{(p)} = c 3^n$. Substituting gives $c = 3$.<br>
+                           - General solution: $a_n = c_1(2^n) + c_2(4^n) + 3^{n+1}$. Use initial conditions to finalize.`
+            },
+            { 
+                id: "c4q9", 
+                text: "Find all solutions of recurrence relation: $a_n = 4a_{n-1} - 4a_{n-2} + 3^n$. Also, find the solution with initial conditions: $a_0=1$ and $a_1=2$.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           - Characteristic equation: $r^2 - 4r + 4 = 0 \\implies (r-2)^2 = 0 \\implies r=2$ (repeated root).<br>
+                           - $a_n^{(h)} = (c_1 + c_2 n)2^n$.<br>
+                           - Particular solution for $3^n$: Try $a_n^{(p)} = c 3^n$. Substituting gives $c = 9$.<br>
+                           - General solution: $a_n = (c_1 + c_2 n)2^n + 9(3^n)$. Solve constants using $a_0=1, a_1=2$.`
+            },
+            { 
+                id: "c4q10", 
+                text: "Find the solution of recurrence relation of $a_n = 5a_{n-1} - 6a_{n-2} + 3n + 2^n$ with initial condition $a_0=0, a_1=1$, and $a_2=2$.", 
+                meta: "2075 Bhadra", 
+                done: false,
+                solution: `<strong>Solution Steps:</strong><br>
+                           - Homogeneous roots: $r = 2, 3 \\implies a_n^{(h)} = c_1(2^n) + c_2(3^n)$.<br>
+                           - Non-homogeneous terms: $(3n)$ and $(2^n)$. Note that $2^n$ matches a homogeneous root, so use $p_1(n) = n(d_1 n + d_2)$ for the linear part, and $p_2(n) = d_3 n 2^n$ for the exponential part. Combine and solve coefficients.`
+            },
+            { 
+                id: "c4q11", 
+                text: "What is recurrence relation? Solve the R-R given by $a_n = 5a_{n-1} - 6a_{n-2} + 6^n$ giving the all solutions of it.", 
+                meta: "2075 Baisakh", 
+                done: false,
+                solution: `<strong>Definition:</strong><br>
+                           A recurrence relation is an equation that defines each term of a sequence using preceding terms.<br>
+                           <strong>Solution Steps:</strong><br>
+                           - Roots: $r = 2, 3 \\implies a_n^{(h)} = c_1(2^n) + c_2(3^n)$.<br>
+                           - Particular solution for $6^n$: Try $a_n^{(p)} = c 6^n$. Substituting gives $c = \\frac{6^2}{6^2 - 5(6) + 6} = \\frac{36}{12} = 3$.<br>
+                           - General solution: $a_n = c_1(2^n) + c_2(3^n) + 3(6^n)$.`
+            },
+            {
+        chapterName: "Chapter 5: Graph Theory & Tree",
+        questions: [
+            { 
+                id: "c5q1", 
+                text: "Define regular graph. Explain different graph representation techniques with example.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Definitions & Representations:</strong><br>
+                           - <strong>Regular Graph:</strong> A graph where every vertex has the exact same degree ($k$). It is called a $k$-regular graph.<br>
+                           - <strong>Representation Techniques:</strong><br>
+                             1. <em>Adjacency Matrix:</em> An $n \\times n$ matrix where entry $A_{ij} = 1$ if there is an edge between vertex $i$ and $j$, and $0$ otherwise.<br>
+                             2. <em>Adjacency List:</em> An array of linked lists where each vertex points to a list of its adjacent neighbors.<br>
+                             3. <em>Incidence Matrix:</em> An $n \\times m$ matrix (vertices $\\times$ edges) showing relationships between vertices and edge endpoints.`
+            },
+            { 
+                id: "c5q2", 
+                text: "State Dirac's and Ore's theorem. Is $K_5$ and $K_{3,3}$ planar graph? Justify your answer.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>1. Theorems:</strong><br>
+                           - <em>Dirac's Theorem:</em> If $G$ is a simple graph with $n \\ge 3$ vertices such that $\\deg(v) \\ge n/2$ for every vertex $v$, then $G$ is Hamiltonian.<br>
+                           - <em>Ore's Theorem:</em> If $G$ is a simple graph with $n \\ge 3$ vertices such that $\\deg(u) + \\deg(v) \\ge n$ for every pair of non-adjacent vertices $u$ and $v$, then $G$ is Hamiltonian.<br><br>
+                           <strong>2. Planarity of $K_5$ and $K_{3,3}$:</strong><br>
+                           <strong>No, neither $K_5$ nor $K_{3,3}$ is planar.</strong> By Kuratowski's Theorem, a graph is planar if and only if it does not contain a subgraph homeomorphic to $K_5$ or $K_{3,3}$. Since $K_5$ and $K_{3,3}$ are the fundamental non-planar graphs, they cannot be drawn in a plane without edge crossings.`
+            },
+            { 
+                id: "c5q3", 
+                text: "Draw $W_6$ and write its incidence matrix. Find the minimum spanning tree using Prim's algorithm from the graph given below.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                imageUrl: "2083-Q12.png",
+                solution: `<strong>Prim's Algorithm Execution:</strong><br>
+                           1. Select an arbitrary starting vertex (e.g., vertex $a$ from <strong>2083-Q12.png</strong>).<br>
+                           2. At each step, add the minimum-weight edge connecting a vertex already in the MST tree to a vertex outside the tree, ensuring no cycles are formed.<br>
+                           3. Continue until all 7 vertices are included in the spanning tree, yielding the minimum total weight.`
+            },
+            { 
+                id: "c5q4", 
+                text: "Find the Maximum flow for the network given below.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                imageUrl: "2083-Q13.png",
+                solution: `<strong>Max-Flow Min-Cut Solution (Ford-Fulkerson Method):</strong><br>
+                           1. Identify source vertex $s$ and sink vertex $t$ from <strong>2083-Q13.png</strong>.<br>
+                           2. Find augmenting paths with available residual capacities from $s$ to $t$.<br>
+                           3. Push flow along each path, update residual networks, and repeat until no augmenting paths remain.<br>
+                           4. The maximum flow equals the capacity of the minimum cut separating $s$ and $t$.`
+            },
+            { 
+                id: "c5q5", 
+                text: "Define wheel graph. Draw 3-dimensional hypercube ($Q_3$). Show that the total number of edges in any complete graph is $\\frac{n(n-1)}{2}$.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>1. Wheel Graph ($W_n$):</strong><br>
+                           A graph obtained by connecting a single universal vertex (hub) to all vertices of a cycle graph $C_{n-1}$.<br><br>
+                           <strong>2. Complete Graph Edge Proof ($K_n$):</strong><br>
+                           In a complete graph $K_n$, each of the $n$ vertices is connected to every other $n-1$ vertices. This accounts for $n(n-1)$ degree connections. Because each edge connects two distinct vertices, it is counted twice. By the Handshaking Theorem, total edges $E = \\frac{n(n-1)}{2}$.`
+            },
+            { 
+                id: "c5q6", 
+                text: "State and prove Euler's Formula for planar graph.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Euler's Formula ($V - E + F = 2$):</strong><br>
+                           For any connected planar simple graph with $V$ vertices, $E$ edges, and $F$ faces (regions), the formula always evaluates to 2.<br>
+                           <em>Proof Outline:</em> Proven by induction on the number of edges $E$. For a tree ($E = V-1$), $F = 1$, so $V - (V-1) + 1 = 2$. Adding edges to form cycles adds faces according to $V - E + F = 2$.`
+            },
+            { 
+                id: "c5q7", 
+                text: "What are saturated edges? State Max-Cut Min Flow theorem. Find the minimum spanning tree using Kruskal's algorithm from the graph given below.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                imageUrl: "2082-Q12.png",
+                solution: `<strong>1. Definitions:</strong><br>
+                           - <em>Saturated Edge:</em> An edge in a flow network where the assigned flow equals its maximum capacity ($f(e) = c(e)$).<br>
+                           - <em>Max-Flow Min-Cut Theorem:</em> The maximum amount of flow passing from source to sink is equal to the total capacity of the minimum cut.<br><br>
+                           <strong>2. Kruskal's Algorithm (from <strong>2082-Q12.png</strong>):</strong><br>
+                           Sort all graph edges in ascending order of weight. Greedily pick the lowest-weight edge, ensuring it does not form a cycle using Disjoint-Set union operations until $V-1$ edges are selected.`
+            },
+            { 
+                id: "c5q8", 
+                text: "Find the shortest distance from vertex A to all other vertex using Dijkstra's algorithm.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                imageUrl: "2082-Q13.png",
+                solution: `<strong>Dijkstra's Algorithm Implementation:</strong><br>
+                           1. Initialize distance to start vertex $A$ as 0, and all other vertices as $\\infty$.<br>
+                           2. Pick the unvisited vertex $u$ with the smallest tentative distance from <strong>2082-Q13.png</strong>.<br>
+                           3. Relax all adjacent neighbor edges, updating distances if a shorter path is found. Mark $u$ as visited and repeat.`
+            },
+            { 
+                id: "c5q9", 
+                text: "Discuss what is a regular graph with an example. Prove that $K_{3,3}$ is a non-planar graph.", 
+                meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>Non-Planarity Proof for $K_{3,3}$ (Utility Graph):</strong><br>
+                           For any bipartite planar graph with $V \\ge 3$, $E \\le 2V - 4$.<br>
+                           For $K_{3,3}$, $V = 6$ and $E = 9$.<br>
+                           Checking inequality: $9 \\le 2(6) - 4 \\implies 9 \\le 8$, which is a blatant contradiction.<br>
+                           Therefore, $K_{3,3}$ cannot be planar.`
+            },
+            { 
+                id: "c5q10", 
+                text: "State handshaking theorem. Discuss the wheel graph with an example. Define Hamiltonian path and Hamiltonian circuit.", meta: "2081 Chaitra", 
+                done: false,
+                solution: `<strong>Definitions:</strong><br>
+                           - <em>Handshaking Theorem:</em> $\\sum_{v \\in V} \\deg(v) = 2E$.<br>
+                           - <em>Hamiltonian Path:</em> A path that visits every vertex in a graph exactly once.<br>
+                           - <em>Hamiltonian Circuit:</em> A closed loop path that visits every vertex exactly once and returns to the starting vertex.`
+            },
+            { 
+                id: "c5q11", 
+                text: "Explain the Euler circuit and Hamilton circuit with an example. State if there is/are any necessary and the sufficient conditions for a graph to have Euler's and Hamilton's paths and circuits.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Conditions:</strong><br>
+                           - <em>Euler Circuit:</em> A connected graph has an Euler circuit if and only if every vertex has an <strong>even degree</strong>.<br>
+                           - <em>Hamilton Circuit:</em> Has sufficient conditions like Dirac's ($\\deg(v) \\ge n/2$) or Ore's theorem, though no simple necessary and sufficient condition exists for general graphs.`
+            },
+            { 
+                id: "c5q12", 
+                text: "Define Binary Tree, M-ary tree and Spanning tree. Find the minimal spanning tree from the graph given below.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                imageUrl: "2080-Q9.png",
+                solution: `<strong>Tree Definitions:</strong><br>
+                           - <em>Binary Tree:</em> A rooted tree where every vertex has at most two children.<br>
+                           - <em>M-ary Tree:</em> A rooted tree where every internal vertex has no more than $m$ children.<br>
+                           - <em>Spanning Tree:</em> A sub-graph that includes all vertices of the original graph with minimum edges forming a tree.`
+            },
+            { 
+                id: "c5q13", 
+                text: "Draw clear and labeled diagrams of Complete graph with 6 Vertices $K_6$ and 3-dimensional Hypercube ($Q_3$). Also write their Chromatic Numbers. Are the graphs $K_6$ and $Q_3$ planar?", 
+                meta: "2079 Chaitra", 
+                done: false,
+                solution: `<strong>Graph Properties:</strong><br>
+                           - $K_6$: Chromatic number $\\chi(K_6) = 6$. Non-planar ($V=6, E=15$ violates $E \\le 3V-6$).<br>
+                           - $Q_3$ (3D Hypercube): 8 vertices, 12 edges. Chromatic number $\\chi(Q_3) = 2$ (bipartite). Planar.`
+            },
+            { 
+                id: "c5q14", 
+                text: "State Handshaking Algorithm for directed graph. Define Bipartite graph with a suitable example. Draw a figure for complete bipartite graph $K_{3,5}$ and determine its chromatic number.", 
+                meta: "2078 Chaitra", 
+                done: false,
+                solution: `<strong>Directed Handshaking & Bipartite:</strong><br>
+                           - Directed Handshaking: $\\sum \\text{deg}^-(v) = \\sum \\text{deg}^+(v) = E$.<br>
+                           - <em>Bipartite Graph:</em> A graph whose vertices can be partitioned into two disjoint sets $U$ and $V$ such that every edge connects a vertex in $U$ to one in $V$.<br>
+                           - For $K_{3,5}$, chromatic number $\\chi(K_{3,5}) = 2$.`
+            },
+            { 
+                id: "c5q15", 
+                text: "State and describe briefly the chromatic number of complete bipartite graph $K_{3,4}$ and cycle $C_5$. Define Planar graph and show that $K_5$ is not a planar graph.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Chromatic Numbers:</strong><br>
+                           - $\\chi(K_{3,4}) = 2$ (all bipartite graphs with at least one edge require 2 colors).<br>
+                           - $\\chi(C_5) = 3$ (odd cycles require 3 colors).<br>
+                           - Planar proof for $K_5$: $V=5, E=10$. Testing $E \\le 3V-6 \\implies 10 \\le 9$, which is false.`
+            },
+            { 
+                id: "c5q16", 
+                text: "Prove the theorem, 'An undirected graph has an even number of vertices of odd degree.' Describe complete graph and bipartite graph.", 
+                meta: "2075 Bhadra", 
+                done: false,
+                solution: `<strong>Proof of Odd Degree Vertices Theorem:</strong><br>
+                           By the Handshaking Theorem, the sum of all degrees is twice the number of edges: $\\sum_{v \\in V} \\deg(v) = 2E$ (an even number).<br>
+                           Split the vertex set into even-degree vertices ($V_{even}$) and odd-degree vertices ($V_{odd}$):<br>
+                           $$\\sum_{v \\in V_{even}} \\deg(v) + \\sum_{v \\in V_{odd}} \\deg(v) = \\text{Even}$$<br>
+                           Since the first sum consists entirely of even numbers, its sum is even. Thus, the sum of the odd degrees must also be even to yield an even total. Since each term in $\\sum_{v \\in V_{odd}} \\deg(v)$ is odd, there must be an <strong>even number</strong> of such terms.`
             }
         ]
-    }
-            
+    }       
           
 ];
-        // ----------------------------------------------------
+    
 
         let trackerData = [];
         let activeChapterIndex = 0;
