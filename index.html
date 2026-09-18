@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discrete Structure PYQ Tracker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --bg-color: #f3f4f6;
+            --sidebar-bg: #ffffff;
+            --surface: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 340px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .progress-container {
+            margin-top: 10px;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-bg {
+            background-color: var(--border);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background-color: var(--success);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .chapter-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .chapter-btn {
+            width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            border: none;
+            background: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-btn:hover {
+            background-color: #f9fafb;
+            color: var(--text-main);
+        }
+
+        .chapter-btn.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .chapter-progress-badge {
+            font-size: 0.75rem;
+            background-color: var(--border);
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: var(--text-main);
+        }
+
+        .chapter-btn.active .chapter-progress-badge {
+            background-color: #dbeafe;
+            color: var(--primary);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-color);
+            overflow-y: auto;
+        }
+
+        .content-header {
+            padding: 32px 40px 24px 40px;
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .content-header h2 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+        }
+
+        .questions-container {
+            padding: 0 40px 40px 40px;
+            max-width: 900px;
+        }
+
+        .question-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .question-card:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .question-card.completed {
+            background-color: #f9fafb;
+            opacity: 0.7;
+        }
+
+        .question-card.completed .question-text {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Custom Checkbox */
+        .checkbox-wrapper {
+            padding-top: 2px;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            font: inherit;
+            color: currentColor;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            background-color: white;
+            transform-origin: bottom left;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: var(--success);
+            border-color: var(--success);
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        .question-content {
+            flex-grow: 1;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            transition: color 0.2s;
+        }
+
+        .question-meta {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .img-preview {
+            max-width: 100%;
+            max-height: 250px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+
+        .img-placeholder {
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #f3f4f6;
+            border: 1px dashed #9ca3af;
+            border-radius: 8px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .img-filename {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 40vh;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .content-header {
+                padding: 20px;
+            }
+            .questions-container {
+                padding: 0 20px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>Discrete Structure PYQs</h1>
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Overall Progress</span>
+                    <span id="overall-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="overall-progress-fill"></div>
+                </div>
+            </div>
+        </div>
+        <div class="chapter-list" id="chapter-list"></div>
+    </div>
+
+    <div class="main-content">
+        <div class="content-header">
+            <h2 id="current-chapter-title">Select a Chapter</h2>
+        </div>
+        <div class="questions-container" id="questions-container"></div>
+    </div>
+
+   <script>
+        const courseData = [
+            {
+                chapterName: "Chapter 1: Logic and Induction",
+                questions: [
+                    { id: "c1q1", text: "Consider the premises: 'If I get my Dashain bonus and my friends are free then I will take a road trip with my friends.' 'If my friends don't find a job after Dashain, then they will be free.' 'I got my Dashain bonus and my friends did not find a job after Dashain.' Leads to the conclusion: 'I will take a road trip with my friends.' using propositional logic.", meta: "2083 Baishakh", done: false },
+                    { id: "c1q2", text: "Explain different types of function. State the converse, contrapositive and inverse of the conditional statement 'My insurance company will pay me only if the flood destroys my house or the fire destroys my house.'", meta: "2082 Bhadra", done: false },
+                    { id: "c1q3", text: "Check validity of the given statement using method of tableaux: $A \\lor B, A \\rightarrow C, \\sim C \\lor D$. Hence, $B \\rightarrow D$.", meta: "2082 Bhadra", done: false },
+                    { id: "c1q4", text: "Determine whether the following system specifications are consistent or not: 'If the network is down, then users cannot access the cloud storage.' 'If users can access the cloud storage, then they can upload files.' 'If users cannot upload files, then the network is down.'", meta: "2081 Chaitra", done: false },
+                    { id: "c1q5", text: "Using rules of inference, derive the conclusion to the given hypothesis: 'If today is Sunday then I will have a test in Discrete Structure and Microprocessor. If my Microprocessor instructor is busy then I will not have a test in Microprocessor. Today is Sunday and my Microprocessor instructor is busy'. Conclusion: 'I will have a test in Discrete Structure'.", meta: "2080 Chaitra", done: false },
+                    { id: "c1q6", text: "What do you mean by tautology, contradiction and contingency? Let $Q(x)$ be the statement '$x < 2$'. What is the truth value of the quantification $\\forall x Q(x)$, where the domain consists of all real numbers?", meta: "2080 Chaitra", done: false },
+                    { id: "c1q7", text: "Construct an argument using rules of inference to show that the hypotheses 'if it does not rain or if it is not foggy, then the sailing race will be held and the lifesaving demonstration will go on,' 'If the sailing race is held, then the trophy will be awarded' and 'The trophy was not awarded' imply the conclusion 'It rained'.", meta: "2079 Chaitra", done: false },
+                    { id: "c1q8", text: "Let $P(x,y)$ be the propositional function $x \\ge y$. The domain of discourse is set of all the positive integers. Now tell whether the proposition is true or false with reasoning: (a) $\\exists x\\forall y P(x, y)$ (b) $\\forall x\\exists y P(x, y)$.", meta: "2079 Chaitra", done: false },
+                    { id: "c1q9", text: "Use rules of inference to show that the hypothesis 'No humans can fly.', 'Tweety is a bird or a human.', 'Tweety can fly' implies the conclusion 'Tweety is a bird'.", meta: "2078 Chaitra", done: false },
+                    { id: "c1q10", text: "Define consistency and Completeness of the Logical System. Draw Tableau for formula set: $\\Phi = \\{(P \\land Q) \\lor R, P \\rightarrow \\sim Q, \\sim P\\}$.", meta: "2078 Chaitra", done: false },
+                    { id: "c1q11", text: "Define Valid Argument in Logic. 'Somebody in this class enjoys whale watching. Every person who enjoys whale watching cares about ocean pollution. Therefore, there is a person in this class who cares about ocean pollution.' Show whether the given argument is valid or not using rules of inference.", meta: "2077 Chaitra", done: false },
+                    { id: "c1q12", text: "Determine whether the given expression is consistent or inconsistent using method of Tableaux: $(P \\land (Q \\rightarrow R)) \\land (\\sim P \\rightarrow S) \\land Q \\land \\sim R \\land \\sim S$.", meta: "2077 Chaitra", done: false },
+                    { id: "c1q13", text: "'A student in this class has not read the book' and 'Everyone in this class passed the first exam' implies that conclusion 'someone who passed the first exam has not read the book.'", meta: "2076 Baisakh", done: false },
+                    { id: "c1q14", text: "Show that $\\{A \\land C, (\\sim A \\lor B) \\land (\\sim B \\lor \\sim C)\\}$ are unsatisfiability of the given set using method of tableaux.", meta: "2076 Baisakh", done: false },
+                    { id: "c1q15", text: "Use rules of inference to show that the hypothesis 'If you have password then you can log on to facebook.' 'If you can log on to facebook then you can create your page.' 'If you can create your page then you can post advertisement or you can create an event.' 'You cannot post advertisement or you cannot create an event.' Imply the conclusion that 'You donot have password.'", meta: "2076 Bhadra", done: false },
+                    { id: "c1q16", text: "Define the terms Tautology, Contradiction and Logical Equivalences. Show that $\\sim A \\rightarrow \\sim B$ and $B \\rightarrow A$ are Logically Equivalent.", meta: "2075 Bhadra", done: false },
+                    { id: "c1q17", text: "Show that the premises 'There is someone in this class who has been to Pokhara. Everyone who goes to Pokhara visit the Sarankot. Therefore, someone in this class has visited the Sarankot.'", meta: "2075 Bhadra", done: false }
+                ]
+            },
+            {
+                chapterName: "Chapter 2: Proof Techniques",
+                questions: [
+                    { id: "c2q1", text: "Prove that $\\sqrt{2} + \\sqrt{3}$ is irrational using proof by contradiction.", meta: "2083 Baishakh", done: false },
+                    { id: "c2q2", text: "Using mathematical induction show that $1^2 + 2^2 + 3^2 + \\dots + n^2 = \\frac{n(n+1)(2n+1)}{6}$.", meta: "2083 Baishakh", done: false },
+                    { id: "c2q3", text: "Define the term counter example and witness with example.", meta: "2082 Bhadra", done: false },
+                    { id: "c2q4", text: "Use the Principle of Mathematical Induction to verify that, for any positive integer $n$, $n^3 + 2n$ is divisible by $3$.", meta: "2082 Bhadra", done: false },
+                    { id: "c2q5", text: "Use mathematical induction to prove that $7^{n+2} + 8^{2n+1}$ is divisible by $57$ for every nonnegative integer $n$.", meta: "2081 Chaitra & 2079 Chaitra", done: false },
+                    { id: "c2q6", text: "Define formal and informal proofs. Let $p(x)$ be $x^2 > 0$. If the domain consists of all integers, find the truth-value of $\\forall x p(x)$ and $\\exists x p(x)$.", meta: "2081 Chaitra", done: false },
+                    { id: "c2q7", text: "Prove that $\\sqrt{2}$ is irrational using proof by contradiction.", meta: "2080 Chaitra", done: false },
+                    { id: "c2q8", text: "Use mathematical induction to prove, if $n$ is non-negative integer, then $(n^5 - n)$ is divisible by $5$.", meta: "2078 Chaitra", done: false },
+                    { id: "c2q9", text: "What are 'Counterexamples', explain with example. Use mathematical induction to prove: $1^3 + 2^3 + 3^3 + \\dots + n^3 = \\frac{n^2(n+1)^2}{4}$ for all positive integer $n$.", meta: "2077 Chaitra", done: false },
+                    { id: "c2q10", text: "Prove that if $n = ab$, where $a$ and $b$ are positive integers, then $a \\le \\sqrt{n}$ or $b \\le \\sqrt{n}$.", meta: "2077 Chaitra", done: false },
+                    { id: "c2q11", text: "Prove that 'If $n$ is an integer and $3n+2$ is odd, then $n$ is odd.'", meta: "2076 Baisakh", done: false },
+                    { id: "c2q12", text: "Define Universal and Existential quantifiers with example. Use mathematical induction to prove that $1+4+7+\\dots+(3n-2) = \\frac{n(3n-1)}{2}$ for all non-negative integers $n$.", meta: "2076 Bhadra", done: false },
+                    { id: "c2q13", text: "Use mathematical induction to verify: $1^2 - 2^2 + 3^2 - 4^2 + \\dots + (-1)^{n+1}n^2 = \\frac{(-1)^{n+1}n(n+1)}{2}$.", meta: "2075 Bhadra", done: false },
+                    { id: "c2q14", text: "Prove by mathematical induction: $4^{n+1} + 5^{2n-1}$ is divisible by $21$ for $n$ as the positive integer.", meta: "2075 Baisakh", done: false },
+                    { id: "c2q15", text: "Prove that if $n$ is a positive integer, then $n$ is even if and only if $7n+4$ is even.", meta: "2074 Bhadra", done: false }
+                ]
+            },
+            {
+                chapterName: "Chapter 3: Automata Theory, Regular Language and Grammar",
+                questions: [
+                    { id: "c3q1", text: "Convert the following NDFA into equivalent DFA.", meta: "2083 Baishakh", done: false, imageUrl: "2083-Q5.png" },
+                    { id: "c3q2", text: "Derive the regular expression for the given automata.", meta: "2082 Bhadra", done: false, imageUrl: "2082-Q6.png" },
+                    { id: "c3q3", text: "Design a deterministic finite automata that accepts all the strings that does not starts with aba over $\\Sigma = \\{a,b\\}$. Also check for string $w_1 = abbabab$ and $w_2$ is accepted or rejected.", meta: "2082 Bhadra", done: false },
+                    { id: "c3q4", text: "Write a regular expression for the language that accepts all the string that does not contains three consecutive b over $\\Sigma = \\{a,b\\}$. Write a CFG that generates the palindrome string of even length over the alphabet $\\Sigma = \\{0,1\\}$. Also generate the string $w=10100101$ using right most derivation and draw the parse tree.", meta: "2083 Baishakh", done: false },
+                    { id: "c3q5", text: "Show that regular language is closed under Kleene star and complement operation.", meta: "2083 Baishakh", done: false },
+                    { id: "c3q6", text: "Design finite state automata that accepts precisely those strings over $\\{a, b\\}$ that ends with the substring 'baa'. Your design should include the proper definition of the finite state automaton, transition table and the transition diagram.", meta: "2081 Chaitra", done: false },
+                    { id: "c3q7", text: "Consider a Regular grammar defined by (Starting Symbol = $S$, Set of Non-Terminals = $\\{S, A\\}$, Set of Terminals = $\\{a, b\\}$, Production Rules = $\\{S \\rightarrow bS, S \\rightarrow aA, A \\rightarrow bA, A \\rightarrow b\\}$). Construct a FSA for this regular grammar and convert it to DFA if it is in NFA.", meta: "2081 Chaitra", done: false },
+                    { id: "c3q8", text: "Define Non-Deterministic Finite State Automata. Draw a transition diagram for Deterministic and Non-deterministic finite automata which accept a string containing 'ing' at the end of a string in a string of $\\{a-z\\}$, e.g., 'anything' but not 'anywhere'.", meta: "2080 Chaitra", done: false },
+                    { id: "c3q9", text: "Design a Finite State automata that accepts precisely those strings over $\\{a, b\\}$ that contains the substring 'bba'.", meta: "2079 Chaitra", done: false },
+                    { id: "c3q10", text: "Given a grammar make NDFA and convert it to equivalent DFA: $A \\rightarrow sA, A \\rightarrow bB, A \\rightarrow b, P \\rightarrow sP, P \\rightarrow bA, P \\rightarrow S$.", meta: "2079 Chaitra", done: false },
+                    { id: "c3q11", text: "Given a Language $L = \\{ W \\in \\{a,b\\}^* \\mid W \\text{ ends with 'ba'} \\}$. Write a regular expression and design a Finite state automata that accepts the language L.", meta: "2078 Chaitra", done: false },
+                    { id: "c3q12", text: "Design a FSA transition diagram that accepts the given set of string over $\\{a,b\\}$: i) which starts with ab and ends with baa. ii) where every b is followed by a.", meta: "2076 Baisakh", done: false },
+                    { id: "c3q13", text: "Let $L$ be the set of strings accepted by the FSA shown below. Now construct a FSA that accepts the strings $L^R = \\{X_n\\dots X_1 \\mid X_1\\dots X_n \\in L\\}$.", meta: "2075 Bhadra", done: false, imageUrl: "2075-Q4.png" }
+                ]
+            },
+            {
+                chapterName: "Chapter 4: Recurrence Relation and Algorithmic Analysis",
+                questions: [
+                    { id: "c4q1", text: "Solve the recurrence relation $a_n = 5a_{n-1} - 6a_{n-2} + 2^n$ with initial condition $a_0 = 1$ and $a_1 = 4$.", meta: "2083 Baishakh", done: false },
+                    { id: "c4q2", text: "Write an algorithm to perform sort operation using insertion sort. Search for key = 45 from the given data 92, 87, 32, 56, 57, 45, 11, 77, 28.", meta: "2083 Baishakh", done: false },
+                    { id: "c4q3", text: "Derive the explicit formula for the Fibonacci series using recurrence relation.", meta: "2082 Bhadra", done: false },
+                    { id: "c4q4", text: "Derive the worst-case time complexity for binary search algorithm. Sort the given data using bubble sort: 67, 45, 54, 2, 29.", meta: "2082 Bhadra", done: false },
+                    { id: "c4q5", text: "Find all the solutions of recurrence relation: $a_n = 3a_{n-1} + 4a_{n-2} + 3^n$ with initial conditions $a_0 = 1$ and $a_2 = 2$.", meta: "2081 Chaitra", done: false },
+                    { id: "c4q6", text: "Find all the solution of recurrence relation: $a_n = 8a_{n-2} - 16a_{n-4}$ with initial conditions $a_0=1, a_1=4, a_2=28$ and $a_3=32$.", meta: "2080 Chaitra", done: false },
+                    { id: "c4q7", text: "Find all solutions of the recurrence relation: $a_n = 2a_{n-1} + 2n^2$ with initial condition $a_1 = 4$.", meta: "2079 Chaitra", done: false },
+                    { id: "c4q8", text: "Find all the solution of the recurrence relation: $a_n = 6a_{n-1} - 8a_{n-2} + 3^n$, where the initial conditions: $a_0=4$ and $a_1=10$.", meta: "2078 Chaitra", done: false },
+                    { id: "c4q9", text: "Find all solutions of recurrence relation: $a_n = 4a_{n-1} - 4a_{n-2} + 3^n$. Also, find the solution with initial conditions: $a_0=1$ and $a_1=2$.", meta: "2077 Chaitra", done: false },
+                    { id: "c4q10", text: "Find the solution of recurrence relation of $a_n = 5a_{n-1} - 6a_{n-2} + 3n + 2^n$ with initial condition $a_0=0, a_1=1$, and $a_2=2$.", meta: "2075 Bhadra", done: false },
+                    { id: "c4q11", text: "What is recurrence relation? Solve the R-R given by $a_n = 5a_{n-1} - 6a_{n-2} + 6^n$ giving the all solutions of it.", meta: "2075 Baisakh", done: false }
+                ]
+            },
+            {
+                chapterName: "Chapter 5: Graph Theory and Tree",
+                questions: [
+                    { id: "c5q1", text: "Define regular graph. Explain different graph representation techniques with example.", meta: "2083 Baishakh", done: false },
+                    { id: "c5q2", text: "State Dirac's and Ore's theorem. Is $K_5$ and $K_{3,3}$ planar graph? Justify your answer.", meta: "2083 Baishakh", done: false },
+                    { id: "c5q3", text: "Draw $W_6$ and write its incidence matrix. Find the minimum spanning tree using Prim's algorithm from the graph given below.", meta: "2083 Baishakh", done: false, imageUrl: "2083-Q12.png" },
+                    { id: "c5q4", text: "Find the Maximum flow for the network given below.", meta: "2083 Baishakh", done: false, imageUrl: "2083-Q13.png" },
+                    { id: "c5q5", text: "Define wheel graph. Draw 3-dimensional hypercube ($Q_3$). Show that the total number of edges in any complete graph is $\\frac{n(n-1)}{2}$.", meta: "2082 Bhadra", done: false },
+                    { id: "c5q6", text: "State and prove Euler's Formula for planar graph.", meta: "2082 Bhadra", done: false },
+                    { id: "c5q7", text: "What are saturated edges? State Max-Cut Min Flow theorem. Find the minimum spanning tree using Kruskal's algorithm from the graph given below.", meta: "2082 Bhadra", done: false, imageUrl: "2082-Q12.png" },
+                    { id: "c5q8", text: "Find the shortest distance from vertex A to all other vertex using Dijkstra's algorithm.", meta: "2082 Bhadra", done: false, imageUrl: "2082-Q13.png" },
+                    { id: "c5q9", text: "Discuss what is a regular graph with an example. Prove that $K_{3,3}$ is a non-planar graph.", meta: "2081 Chaitra", done: false },
+                    { id: "c5q10", text: "State handshaking theorem. Discuss the wheel graph with an example. Define Hamiltonian path and Hamiltonian circuit.", meta: "2081 Chaitra", done: false },
+                    { id: "c5q11", text: "Explain the Euler circuit and Hamilton circuit with an example. State if there is/are any necessary and the sufficient conditions for a graph to have Euler's and Hamilton's paths and circuits.", meta: "2080 Chaitra", done: false },
+                    { id: "c5q12", text: "Define Binary Tree, M-ary tree and Spanning tree. Find the minimal spanning tree from the graph given below.", meta: "2080 Chaitra", done: false, imageUrl: "2080-Q9.png" },
+                    { id: "c5q13", text: "Draw clear and labeled diagrams of Complete graph with 6 Vertices $K_6$ and 3-dimensional Hypercube ($Q_3$). Also write their Chromatic Numbers. Are the graphs $K_6$ and $Q_3$ planar?", meta: "2079 Chaitra", done: false },
+                    { id: "c5q14", text: "State Handshaking Algorithm for directed graph. Define Bipartite graph with a suitable example. Draw a figure for complete bipartite graph $K_{3,5}$ and determine its chromatic number.", meta: "2078 Chaitra", done: false },
+                    { id: "c5q15", text: "State and describe briefly the chromatic number of complete bipartite graph $K_{3,4}$ and cycle $C_5$. Define Planar graph and show that $K_5$ is not a planar graph.", meta: "2077 Chaitra", done: false },
+                    { id: "c5q16", text: "Prove the theorem, 'An undirected graph has an even number of vertices of odd degree.' Describe complete graph and bipartite graph.", meta: "2075 Bhadra", done: false }
+                ]
+            }
+        ];
+
+        let trackerData = [];
+        let activeChapterIndex = 0;
+
+        function init() {
+            // Version 5 key forces a clean reset in the browser to grab the .png links
+            const savedData = localStorage.getItem('dsTrackerData_v5');
+            if (savedData) {
+                trackerData = JSON.parse(savedData);
+            } else {
+                trackerData = courseData;
+            }
+            renderSidebar();
+            renderContent(activeChapterIndex);
+            updateOverallProgress();
+        }
+
+        function saveData() {
+            localStorage.setItem('dsTrackerData_v5', JSON.stringify(trackerData));
+            updateOverallProgress();
+            renderSidebar(); 
+        }
+
+        function updateOverallProgress() {
+            let total = 0;
+            let completed = 0;
+
+            trackerData.forEach(chapter => {
+                chapter.questions.forEach(q => {
+                    total++;
+                    if (q.done) completed++;
+                });
+            });
+
+            const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
+            document.getElementById('overall-progress-text').innerText = `${percentage}%`;
+            document.getElementById('overall-progress-fill').style.width = `${percentage}%`;
+        }
+
+        function renderSidebar() {
+            const chapterList = document.getElementById('chapter-list');
+            chapterList.innerHTML = '';
+
+            trackerData.forEach((chapter, index) => {
+                const totalQ = chapter.questions.length;
+                const completedQ = chapter.questions.filter(q => q.done).length;
+
+                const btn = document.createElement('button');
+                btn.className = `chapter-btn ${index === activeChapterIndex ? 'active' : ''}`;
+                
+                const shortName = chapter.chapterName.split(':')[1] || chapter.chapterName;
+
+                btn.innerHTML = `
+                    <span>${shortName}</span>
+                    <span class="chapter-progress-badge">${completedQ}/${totalQ}</span>
+                `;
+                
+                btn.onclick = () => {
+                    activeChapterIndex = index;
+                    renderSidebar();
+                    renderContent(index);
+                };
+
+                chapterList.appendChild(btn);
+            });
+        }
+
+        function renderContent(chapterIndex) {
+            const chapter = trackerData[chapterIndex];
+            document.getElementById('current-chapter-title').innerText = chapter.chapterName;
+            
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            chapter.questions.forEach((q, qIndex) => {
+                const card = document.createElement('div');
+                card.className = `question-card ${q.done ? 'completed' : ''}`;
+
+                const checkboxWrapper = document.createElement('div');
+                checkboxWrapper.className = 'checkbox-wrapper';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = q.done;
+                
+                checkbox.addEventListener('change', (e) => {
+                    trackerData[chapterIndex].questions[qIndex].done = e.target.checked;
+                    if(e.target.checked) {
+                        card.classList.add('completed');
+                    } else {
+                        card.classList.remove('completed');
+                    }
+                    saveData();
+                });
+
+                checkboxWrapper.appendChild(checkbox);
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'question-content';
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'question-text';
+                textDiv.innerHTML = q.text;
+
+                const metaDiv = document.createElement('div');
+                metaDiv.className = 'question-meta';
+                metaDiv.innerText = `Source: ${q.meta}`;
+
+                contentDiv.appendChild(textDiv);
+                
+                if (q.imageUrl && q.imageUrl.trim() !== "") {
+                    const img = document.createElement('img');
+                    img.src = q.imageUrl;
+                    img.className = 'img-preview';
+                    
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        const instructions = document.createElement('div');
+                        instructions.className = 'img-placeholder';
+                        instructions.innerHTML = `[Image Missing]<br>Please upload your screenshot exactly as: <span class="img-filename">${q.imageUrl}</span>`;
+                        contentDiv.appendChild(instructions);
+                    };
+                    
+                    contentDiv.appendChild(img);
+                }
+
+                contentDiv.appendChild(metaDiv);
+                card.appendChild(checkboxWrapper);
+                card.appendChild(contentDiv);
+                container.appendChild(card);
+            });
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([container]).catch(function (err) {
+                    console.log('MathJax formatting error: ', err.message);
+                });
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
