@@ -867,7 +867,234 @@
                            \\end{array}
                            $$<br>
                            <strong>Verdict:</strong> Proven valid.`
+            },
+            {
+        chapterName: "Chapter 2: Proof Techniques",
+        questions: [
+            { 
+                id: "c2q1", 
+                text: "Prove that $\\sqrt{2} + \\sqrt{3}$ is irrational using proof by contradiction.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Proof by Contradiction:</strong><br>
+                           <strong>1. Assumption:</strong> Assume the opposite, that $\\sqrt{2} + \\sqrt{3}$ is a rational number $r$.<br>
+                           Let $r = \\sqrt{2} + \\sqrt{3}$, where $r \\in \\mathbb{Q}$.<br><br>
+                           <strong>2. Algebraic Manipulation:</strong><br>
+                           Square both sides:<br>
+                           $r^2 = (\\sqrt{2} + \\sqrt{3})^2$<br>
+                           $r^2 = 2 + 2\\sqrt{6} + 3$<br>
+                           $r^2 = 5 + 2\\sqrt{6}$<br><br>
+                           <strong>3. Isolate the radical:</strong><br>
+                           $r^2 - 5 = 2\\sqrt{6}$<br>
+                           $\\frac{r^2 - 5}{2} = \\sqrt{6}$<br><br>
+                           <strong>4. The Contradiction:</strong><br>
+                           Since $r$ is a rational number, $r^2$ is rational. Subtracting 5 and dividing by 2 yields another rational number. Therefore, the left side of the equation ($\\frac{r^2 - 5}{2}$) is strictly rational.<br>
+                           However, it is a known fact that $\\sqrt{6}$ is irrational. <br>
+                           We have reached a contradiction where a rational number equals an irrational number.<br><br>
+                           <strong>Conclusion:</strong> Our initial assumption was false. Therefore, $\\sqrt{2} + \\sqrt{3}$ must be irrational.`
+            },
+            { 
+                id: "c2q2", 
+                text: "Define the term counter example and witness with example.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Counterexample:</strong><br>
+                           A counterexample is a specific case that proves a universal statement ($\\forall x P(x)$) is false. It only takes one counterexample to disprove a universally quantified statement.<br>
+                           <em>Example:</em> Disprove the statement "All prime numbers are odd."<br>
+                           <em>Counterexample:</em> The number 2 is prime, but it is even.<br><br>
+                           <strong>Witness:</strong><br>
+                           A witness is a specific value that proves an existential statement ($\\exists x P(x)$) is true. It demonstrates that at least one element satisfies the property.<br>
+                           <em>Example:</em> Prove "There exists an even prime number."<br>
+                           <em>Witness:</em> The number 2 is the witness because it is both even and prime.`
+            },
+            { 
+                id: "c2q3", 
+                text: "Prove that $\\sqrt{2}$ is irrational using proof by contradiction.", 
+                meta: "2080 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Contradiction:</strong><br>
+                           <strong>1. Assumption:</strong> Assume $\\sqrt{2}$ is a rational number equal to $\\frac{a}{b}$ in lowest terms (no common factors other than 1), where $b \\neq 0$.<br>
+                           $\\sqrt{2} = \\frac{a}{b} \\implies 2 = \\frac{a^2}{b^2} \\implies 2b^2 = a^2$<br><br>
+                           <strong>2. Implications:</strong><br>
+                           Since $a^2 = 2b^2$, $a^2$ is even, which means $a$ must also be even. Let $a = 2k$.<br>
+                           Substituting $a$: $2b^2 = (2k)^2 = 4k^2 \\implies b^2 = 2k^2$.<br>
+                           This shows $b^2$ is even, so $b$ must be even.<br><br>
+                           <strong>3. Contradiction:</strong><br>
+                           Both $a$ and $b$ are even, meaning they share a common factor of 2. This contradicts our premise that $\\frac{a}{b}$ is in lowest terms.<br>
+                           <strong>Conclusion:</strong> $\\sqrt{2}$ is irrational.`
+            },
+            { 
+                id: "c2q4", 
+                text: "What are 'Counterexamples', explain with example. Use mathematical induction to prove: $1^3 + 2^3 + 3^3 + \\dots + n^3 = \\frac{n^2(n+1)^2}{4}$ for all positive integer $n$.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           Let $P(n)$ be: $1^3 + 2^3 + \\dots + n^3 = \\frac{n^2(n+1)^2}{4}$.<br><br>
+                           <strong>1. Basis Step ($n=1$):</strong><br>
+                           LHS: $1^3 = 1$<br>
+                           RHS: $\\frac{1^2(1+1)^2}{4} = \\frac{1(4)}{4} = 1$<br>
+                           LHS = RHS, so $P(1)$ is true.<br><br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $P(k)$ is true:<br>
+                           $1^3 + 2^3 + \\dots + k^3 = \\frac{k^2(k+1)^2}{4}$<br><br>
+                           <strong>3. Inductive Step:</strong> Show $P(k+1)$ is true:<br>
+                           LHS = $(1^3 + 2^3 + \\dots + k^3) + (k+1)^3$<br>
+                           = $\\frac{k^2(k+1)^2}{4} + (k+1)^3$<br>
+                           = $(k+1)^2 \\left[ \\frac{k^2}{4} + (k+1) \\right]$<br>
+                           = $(k+1)^2 \\left[ \\frac{k^2 + 4k + 4}{4} \\right]$<br>
+                           = $\\frac{(k+1)^2 (k+2)^2}{4} = \\left[ \\frac{(k+1)(k+2)}{2} \\right]^2$<br><br>
+                           This matches the RHS for $n = k+1$. Thus, the identity is proven.`
+            },
+            { 
+                id: "c2q5", 
+                text: "Prove that if $n = ab$, where $a$ and $b$ are positive integers, then $a \\le \\sqrt{n}$ or $b \\le \\sqrt{n}$.", 
+                meta: "2077 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Contradiction:</strong><br>
+                           <strong>1. Assumption:</strong> Assume neither $a \\le \\sqrt{n}$ nor $b \\le \\sqrt{n}$ is true.<br>
+                           This means $a > \\sqrt{n}$ and $b > \\sqrt{n}$.<br><br>
+                           <strong>2. Manipulation:</strong><br>
+                           Multiplying the two inequalities: $a \\cdot b > \\sqrt{n} \\cdot \\sqrt{n}$<br>
+                           $ab > n$<br><br>
+                           <strong>3. Contradiction:</strong><br>
+                           Since we are given that $n = ab$, the inequality becomes $n > n$, which is impossible.<br>
+                           <strong>Conclusion:</strong> At least one of $a$ or $b$ must be less than or equal to $\\sqrt{n}$.`
+            },
+            { 
+                id: "c2q6", 
+                text: "Prove that 'If $n$ is an integer and $3n+2$ is odd, then $n$ is odd.'", 
+                meta: "2076 Baisakh", 
+                done: false,
+                solution: `<strong>Proof by Contraposition:</strong><br>
+                           We want to prove $P \\rightarrow Q$: "If $3n+2$ is odd, then $n$ is odd."<br>
+                           The contrapositive is $\\sim Q \\rightarrow \\sim P$: "If $n$ is not odd (i.e., $n$ is even), then $3n+2$ is not odd (i.e., $3n+2$ is even)."<br><br>
+                           <strong>1. Setup:</strong> Assume $n$ is an even integer. By definition, $n = 2k$ for some integer $k$.<br>
+                           <strong>2. Substitution:</strong><br>
+                           $3n + 2 = 3(2k) + 2$<br>
+                           $= 6k + 2$<br>
+                           $= 2(3k + 1)$<br><br>
+                           <strong>3. Conclusion:</strong><br>
+                           Since $3n+2$ can be factored into 2 times an integer ($3k+1$), $3n+2$ is even.<br>
+                           By contraposition, the original statement is true.`
+            },
+            { 
+                id: "c2q7", 
+                text: "Use mathematical induction to prove that $1^2 + 2^2 + 3^2 + \\dots + n^2 = \\frac{n(n+1)(2n+1)}{6}$.", 
+                meta: "2083 Baishakh", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           <strong>1. Basis Step ($n=1$):</strong><br>
+                           LHS = $1^2 = 1$.<br>
+                           RHS = $\\frac{1(1+1)(2(1)+1)}{6} = \\frac{6}{6} = 1$. True.<br><br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume true for $n=k$:<br>
+                           $1^2 + 2^2 + \\dots + k^2 = \\frac{k(k+1)(2k+1)}{6}$<br><br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           LHS = $\\frac{k(k+1)(2k+1)}{6} + (k+1)^2$<br>
+                           = $(k+1) \\left[ \\frac{k(2k+1) + 6(k+1)}{6} \\right]$<br>
+                           = $\\frac{(k+1)(2k^2 + 7k + 6)}{6}$<br>
+                           = $\\frac{(k+1)(k+2)(2k+3)}{6}$<br>
+                           This matches the formula for $n = k+1$. Thus, proven.`
+            },
+            { 
+                id: "c2q8", 
+                text: "Use the Principle of Mathematical Induction to verify that, for any positive integer $n$, $n^3 + 2n$ is divisible by $3$.", 
+                meta: "2082 Bhadra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           Let $P(n)$ be the proposition that $n^3 + 2n = 3M$ for some integer $M$.<br><br>
+                           <strong>1. Basis Step ($n=1$):</strong><br>
+                           $1^3 + 2(1) = 1 + 2 = 3$. Since $3 = 3 \\times 1$, $P(1)$ is true.<br><br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $P(k)$ is true:<br>
+                           $k^3 + 2k = 3M$ <br><br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           Consider $(k+1)^3 + 2(k+1)$:<br>
+                           $= (k^3 + 3k^2 + 3k + 1) + (2k + 2)$<br>
+                           $= (k^3 + 2k) + (3k^2 + 3k + 3)$<br>
+                           $= (3M) + 3(k^2 + k + 1)$<br>
+                           $= 3(M + k^2 + k + 1)$<br><br>
+                           Since the result is a multiple of 3, $P(k+1)$ is true.`
+            },
+            { 
+                id: "c2q9", 
+                text: "Use mathematical induction to prove that $7^{n+2} + 8^{2n+1}$ is divisible by $57$ for every nonnegative integer $n$.", 
+                meta: "2081 Chaitra & 2079 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           <strong>1. Basis Step ($n=0$):</strong><br>
+                           $7^{0+2} + 8^{2(0)+1} = 49 + 8 = 57$ (Divisible by 57).<br><br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $7^{k+2} + 8^{2k+1} = 57M$.<br>
+                           Thus, $7^{k+2} = 57M - 8^{2k+1}$.<br><br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           $7^{(k+1)+2} + 8^{2(k+1)+1} = 7 \\cdot 7^{k+2} + 64 \\cdot 8^{2k+1}$<br>
+                           $= 7(57M - 8^{2k+1}) + 64 \\cdot 8^{2k+1}$<br>
+                           $= 57(7M) + 57 \\cdot 8^{2k+1} = 57(7M + 8^{2k+1})$.<br>
+                           Divisible by 57. Proven.`
+            },
+            { 
+                id: "c2q10", 
+                text: "Use mathematical induction to prove, if $n$ is non-negative integer, then $(n^5 - n)$ is divisible by $5$.", 
+                meta: "2078 Chaitra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           <strong>1. Basis Step ($n=0$):</strong> $0^5 - 0 = 0$, which is divisible by 5.<br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $k^5 - k = 5M$.<br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           $(k+1)^5 - (k+1) = (k^5 + 5k^4 + 10k^3 + 10k^2 + 5k + 1) - k - 1$<br>
+                           $= (k^5 - k) + 5(k^4 + 2k^3 + 2k^2 + k)$<br>
+                           $= 5M + 5(k^4 + 2k^3 + 2k^2 + k) = 5(M + k^4 + 2k^3 + 2k^2 + k)$.<br>
+                           Divisible by 5. Proven.`
+            },
+            { 
+                id: "c2q11", 
+                text: "Use mathematical induction to prove that $1+4+7+\\dots+(3n-2) = \\frac{n(3n-1)}{2}$ for all non-negative integers $n$.", 
+                meta: "2076 Bhadra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           <strong>1. Basis Step ($n=1$):</strong> LHS = 1. RHS = $\\frac{1(3(1)-1)}{2} = 1$. True.<br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume true for $n=k$.<br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           Add $(3(k+1)-2)$ to both sides:<br>
+                           $= \\frac{k(3k-1)}{2} + (3k+1) = \\frac{3k^2 - k + 6k + 2}{2}$<br>
+                           $= \\frac{3k^2 + 5k + 2}{2} = \\frac{(k+1)(3k+2)}{2} = \\frac{(k+1)(3(k+1)-1)}{2}$. Proven.`
+            },
+            { 
+                id: "c2q12", 
+                text: "Use mathematical induction to verify: $1^2 - 2^2 + 3^2 - 4^2 + \\dots + (-1)^{n+1}n^2 = \\frac{(-1)^{n+1}n(n+1)}{2}$.", 
+                meta: "2075 Bhadra", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           <strong>1. Basis Step ($n=1$):</strong> LHS = $1^2 = 1$. RHS = $\\frac{(-1)^2(1)(2)}{2} = 1$. True.<br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume true for $n=k$.<br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           Add $(-1)^{(k+1)+1}(k+1)^2$ to the sum and factor out terms to arrive at $\\frac{(-1)^{k+2}(k+1)(k+2)}{2}$. Proven.`
+            },
+            { 
+                id: "c2q13", 
+                text: "Prove by mathematical induction: $4^{n+1} + 5^{2n-1}$ is divisible by $21$ for $n$ as the positive integer.", 
+                meta: "2075 Baisakh", 
+                done: false,
+                solution: `<strong>Proof by Mathematical Induction:</strong><br>
+                           <strong>1. Basis Step ($n=1$):</strong> $4^2 + 5^1 = 16 + 5 = 21$ (Divisible by 21).<br>
+                           <strong>2. Inductive Hypothesis:</strong> Assume $4^{k+1} + 5^{2k-1} = 21M$.<br>
+                           <strong>3. Inductive Step ($n=k+1$):</strong><br>
+                           $4^{(k+1)+1} + 5^{2(k+1)-1} = 4 \\cdot 4^{k+1} + 25 \\cdot 5^{2k-1}$<br>
+                           $= 4(21M - 5^{2k-1}) + 25 \\cdot 5^{2k-1} = 21(4M + 5^{2k-1})$.<br>
+                           Divisible by 21. Proven.`
+            },
+            { 
+                id: "c2q14", 
+                text: "Prove that if $n$ is a positive integer, then $n$ is even if and only if $7n+4$ is even.", 
+                meta: "2074 Bhadra", 
+                done: false,
+                solution: `<strong>Proof of Equivalence ($P \\iff Q$):</strong><br>
+                           <strong>Part 1: If $n$ is even, then $7n+4$ is even.</strong><br>
+                           Let $n = 2k$. Then $7(2k) + 4 = 14k + 4 = 2(7k + 2)$, which is even.<br><br>
+                           <strong>Part 2: If $7n+4$ is even, then $n$ is even (Contraposition).</strong><br>
+                           Assume $n$ is odd ($n = 2k+1$).<br>
+                           $7(2k+1) + 4 = 14k + 7 + 4 = 14k + 11 = 2(7k + 5) + 1$, which is odd.<br>
+                           Since the negation of the conclusion leads to the negation of the premise, Part 2 holds.`
             }
+        ]
+    }
             
         ]
     }
